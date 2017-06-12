@@ -102,8 +102,8 @@ a.pop:hover .ainfo{ /*the span will display just on :hover state*/
 }
 	
 .messages {
-	display:none;
-	position:absolute;
+	/* display:none; */
+	/* position:absolute; */
 	top: 600px;
 }
 
