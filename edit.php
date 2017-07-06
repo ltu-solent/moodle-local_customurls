@@ -15,7 +15,7 @@ $PAGE->set_url($CFG->wwwroot.'/local/customurls/edit.php');
 echo $OUTPUT->header();
 echo "<h2>" . get_string('pluginname', 'local_customurls') ."</h2>";
 echo '<link rel="stylesheet" type="text/css" href="styles.css">'; //Pick up the style sheet
-echo '<script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js""></script>'; //Pick up javascript files
+echo '<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js""></script>'; //Pick up javascript files
 echo '<script type="text/javascript" src="/local/customurls/js/organictabs.jquery.js" ></script>'; //Pick up javascript files
 echo "<script type='text/javascript'> 
 	 //<![CDATA[
