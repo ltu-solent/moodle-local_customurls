@@ -2,7 +2,7 @@
 require_once(dirname(dirname(__FILE__)).'../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
 require_once('lib.php');
-require_login(true);
+require_capability('moodle/site:config', context_system::instance());
 
 //admin_externalpage_setup('customurls', '', null, '', array('pagelayout'=>'admin'));
 

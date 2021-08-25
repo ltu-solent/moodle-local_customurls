@@ -1,5 +1,6 @@
 <?php
 
+defined('MOODLE_INTERNAL') || die();
 function url_exists($url){
 
 	$handle   = curl_init($url);
@@ -14,7 +15,10 @@ function url_exists($url){
 
 	// grab Url
 	$connectable = curl_exec($handle);
-
+	$curlerror = curl_error($handle);
+	if ($curlerror != '') {
+		throw new Exception($curlerror);
+	}
 	// close Curl resource, and free up system resources
 	curl_close($handle);   
 	return $connectable;

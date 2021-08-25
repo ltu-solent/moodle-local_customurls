@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(dirname(__FILE__)).'../../config.php');
 global $CFG, $DB, $USER;
-
+require_capability('moodle/site:config', context_system::instance());
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('admin');
 $PAGE->set_title("Delete custom urls");
