@@ -22,13 +22,30 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
+
 $settings = new admin_settingpage('local_customurls', new lang_string('pluginname', 'local_customurls'));
 
-$link = '<a href="' . $CFG->wwwroot.'/local/customurls/edit.php">' . get_string('pluginname', 'local_customurls') . '</a>';
-$settings->add(new admin_setting_heading('local_customurls_link', '', $link));
+if ($hassiteconfig) {
+    $indexlink = new moodle_url('/local/customurls/index.php');
+    $link = html_writer::link($indexlink, new lang_string('pluginname', 'local_customurls'));
+    $settings->add(new admin_setting_heading('local_customurls_link', '', $link));
 
-$ADMIN->add('localplugins', $settings);
+    $name = new lang_string('whitelistdomainpattern', 'local_customurls');
+    $desc = new lang_string('whitelistdomainpattern_desc', 'local_customurls');
+
+    $domain = parse_url($CFG->wwwroot, PHP_URL_HOST);
+    if (!$domain) {
+        $domain = '';
+    }
+    $settings->add(new admin_setting_configtext('local_customurls/whitelistdomainpattern',
+        $name, $desc, $domain, PARAM_RAW));
+
+    $ADMIN->add('localplugins', $settings);
+}
+
+
+
 
 // $ADMIN->add('root', new admin_category('tweaks', 'Custom urls'));
 // $ADMIN->add('tweaks', new admin_externalpage('customurls', 'Manage urls',

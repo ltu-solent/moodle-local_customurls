@@ -6,16 +6,20 @@
     <TABLES>
     <TABLE NAME="customurls" COMMENT="Defines custom urls">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="user"/>
-        <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="userrole"/>
-		<FIELD NAME="userrole" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="user" NEXT="info"/>
-        <FIELD NAME="info" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false" PREVIOUS="userrole" NEXT="url"/>
-		<FIELD NAME="url" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="info" NEXT="custom_name"/>
-		<FIELD NAME="custom_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="url" />
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="info" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false"/>
+		    <FIELD NAME="url" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+		    <FIELD NAME="custom_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" />
+        <FIELD NAME="lastaccessed" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
+        <FIELD NAME="accesscount" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
       </FIELDS>
-     <KEYS>
+      <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
+      <INDEXES>
+        <INDEX NAME="customname" UNIQUE="true" FIELDS="custom_name"/>
+      </INDEXES>
     </TABLE>
   </TABLES>
 

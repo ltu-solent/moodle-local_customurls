@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Old edit file
+ * 404 output page
  *
  * @package   local_customurls
  * @author    Mark Sharp <mark.sharp@solent.ac.uk>
@@ -23,5 +23,27 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
-redirect(new moodle_url('/local/customurls/index.php'));
+namespace local_customurls\output;
+
+use moodle_url;
+use renderable;
+use renderer_base;
+use stdClass;
+use templatable;
+
+defined('MOODLE_INTERNAL') || die();
+
+class fourohfour implements renderable, templatable {
+
+    public function export_for_template(renderer_base $output) {
+        $requesturi = $_SERVER['REQUEST_URI'];
+        $fullurl = new moodle_url($requesturi);
+        $data = new stdclass();
+        $data->fullurl = $fullurl->out();
+        $data->now = date ("m/d/Y h:i:s a");
+        $mainadmin = get_admin();
+        $data->contactemail = $mainadmin->email;
+        $data->contactname = fullname($mainadmin);
+        return $data;
+    }
+}
