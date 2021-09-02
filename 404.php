@@ -25,7 +25,7 @@
 
 require_once('../../config.php');
 
-$customurl = \local_customurls\helper::get_customurl($_SERVER['REQUEST_URI']);
+$customurl = \local_customurls\api::get_customurl($_SERVER['REQUEST_URI']);
 
 if ($customurl) {
     header('Location:' . $customurl->url);

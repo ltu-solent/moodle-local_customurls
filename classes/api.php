@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Helper functions file
+ * Class containing helper functions for customurls
  *
  * @package   local_customurls
  * @author    Mark Sharp <mark.sharp@solent.ac.uk>
@@ -30,9 +30,9 @@ use curl;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Helper class
+ * Api class
  */
-class helper {
+class api {
     /**
      * Check if the URL exist.
      * @param url (string) URL to check.

@@ -28,7 +28,6 @@ namespace local_customurls;
 use core\persistent;
 use lang_string;
 use moodle_url;
-use stdClass;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -44,7 +43,7 @@ class customurl extends persistent {
      * @return array
      */
     protected static function define_properties() {
-        global $CFG, $USER;
+        global $USER;
         return [
             'user' => [
                 'type' => PARAM_INT,
@@ -113,7 +112,7 @@ class customurl extends persistent {
         if ($curlhelper->url_is_blocked($url)) {
             return new lang_string('blockedurl', 'local_customurls', $url);
         }
-        if (!helper::url_exists($url)) {
+        if (!api::url_exists($url)) {
             return new lang_string('urlnotexists', 'local_customurls');
         }
         return true;
