@@ -46,10 +46,8 @@ class customurl_form extends persistent {
         $mform = $this->_form;
         $config = get_config('local_customurls');
         $mform->addElement('hidden', 'user');
-        $mform->setType('user', PARAM_INT);
 
         $mform->addElement('text', 'url', new lang_string('url', 'local_customurls'), 'size="51"');
-        $mform->setType('url', PARAM_URL);
         $mform->addRule('url', get_string('required'), 'required', null, 'client');
         $mform->addHelpButton('url', 'url', 'local_customurls');
 
@@ -67,13 +65,11 @@ class customurl_form extends persistent {
         }
 
         $mform->addElement('text', 'custom_name', new lang_string('custompath', 'local_customurls'), 'size="51"');
-        $mform->setType('custom_name', PARAM_ALPHANUMEXT);
         $mform->addRule('custom_name', new lang_string('required'), 'required', null, 'client');
         $mform->addHelpButton('custom_name', 'custom_name', 'local_customurls');
 
         $mform->addElement('textarea', 'info', new lang_string('description', 'local_customurls'),
             'wrap="virtual" rows="5" cols="50"');
-        $mform->setType('info', PARAM_TEXT);
         $mform->addRule('info', new lang_string('required'), 'required', null, 'client');
         $mform->addHelpButton('info', 'info', 'local_customurls');
 
