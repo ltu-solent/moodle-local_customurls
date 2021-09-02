@@ -27,6 +27,7 @@ namespace local_customurls;
 
 use core\persistent;
 use lang_string;
+use moodle_url;
 use stdClass;
 
 defined('MOODLE_INTERNAL') || die();
@@ -53,8 +54,8 @@ class customurl extends persistent {
                 'type' => PARAM_TEXT
             ],
             'url' => [
-                'type' => PARAM_URL,
-                'default' => $CFG->wwwroot
+                'type' => PARAM_TEXT,
+                'default' => '/'
             ],
             'custom_name' => [
                 'type' => PARAM_PATH
@@ -70,11 +71,37 @@ class customurl extends persistent {
         ];
     }
 
+    /**
+     * A valid url, could be a full qualified url, or a localurl. The default path allows anything,
+     * so this function will check for anything that shouldn't be there.
+     *
+     * @param string $url
+     * @return bool | lang_string
+     */
     protected function validate_url($url) {
-        $targetdomain = get_config('local_customurls', 'targetdomainpattern');
-        if (!empty($targetdomain)) {
-            if (strpos($url, $targetdomain) === false) {
-                return new lang_string('invaliddomain', 'local_customurls', $targetdomain);
+
+        $islocalurl = strpos($url, '/') === 0;
+        if ($islocalurl) {
+            $murl = new moodle_url($url);
+            $url = $murl->out();
+        }
+        $cleanurl = clean_param($url, PARAM_URL);
+        if ($cleanurl !== $url) {
+            return new lang_string('unclean', 'local_customurls');
+        }
+        $whitelist = trim(get_config('local_customurls', 'whitelistdomainpattern'));
+        if (!empty($whitelist)) {
+            $targetdomains = explode(',', $whitelist);
+            if (count($targetdomains) > 0) {
+                $ok = false;
+                foreach ($targetdomains as $targetdomain) {
+                    if (strpos($url, $targetdomain) !== false) {
+                        $ok = true;
+                    }
+                }
+                if (!$ok) {
+                    return new lang_string('invaliddomain', 'local_customurls', $targetdomain);
+                }
             }
         }
         // Is it a valid url, though? PARAM_URL should check this.
@@ -87,7 +114,7 @@ class customurl extends persistent {
             return new lang_string('blockedurl', 'local_customurls', $url);
         }
         if (!helper::url_exists($url)) {
-            return new lang_string('invalidurl', 'local_customurls');
+            return new lang_string('urlnotexists', 'local_customurls');
         }
         return true;
     }

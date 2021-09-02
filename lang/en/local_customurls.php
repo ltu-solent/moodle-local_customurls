@@ -68,9 +68,11 @@ $string['requestedurlnotfound'] = '<p>The requested URL (<a href="{$a}">{$a}</a>
 
 $string['redirectto'] = 'Redirect to';
 
+$string['unclean'] = 'Unclean url';
 $string['updated'] = '"{$a}" has been updated.';
 $string['url'] = 'Original Url';
 $string['url_help'] = 'The url you wish to direct the user to. Please include the full domain name.';
+$string['urlnotexists'] = 'The url doesn\'t exist';
 
 $string['whitelist'] = 'Whitelist';
 $string['whitelist_help'] = 'Only these domains are permitted';

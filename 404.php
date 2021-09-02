@@ -23,7 +23,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+require_once('../../config.php');
 
 $customurl = \local_customurls\helper::get_customurl($_SERVER['REQUEST_URI']);
 
