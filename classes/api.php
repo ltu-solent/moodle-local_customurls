@@ -26,6 +26,7 @@
 namespace local_customurls;
 
 use curl;
+use stdClass;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -74,5 +75,17 @@ class api {
         $record->accesscount++;
         $DB->update_record('customurls', $record);
         return $record;
+    }
+
+    /**
+     * Creates a persistent record from a stdClass
+     *
+     * @param stdClass $record
+     * @return \local_customurls\customurl
+     */
+    public static function create_customurl($record) {
+        $customurl = new customurl(0, $record);
+        $customurl->create();
+        return $customurl;
     }
 }
