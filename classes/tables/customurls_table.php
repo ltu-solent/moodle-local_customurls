@@ -24,14 +24,15 @@
  */
 
 namespace local_customurls\tables;
+
+defined('MOODLE_INTERNAL') || die();
+
 require_once("$CFG->libdir/tablelib.php");
 use context_system;
 use core_user;
 use html_writer;
 use moodle_url;
 use table_sql;
-
-defined('MOODLE_INTERNAL') || die();
 
 class customurls_table extends table_sql {
     public function __construct($uniqueid) {
