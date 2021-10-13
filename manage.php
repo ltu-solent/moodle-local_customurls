@@ -23,10 +23,12 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once('../../config.php');
+
 use local_customurls\customurl;
 use local_customurls\forms\customurl_form;
 
-require_once('../../config.php');
+require_login(null, false);
 
 $id = optional_param('id', 0, PARAM_INT); // CustomurlID - 0 new assumed.
 $action = optional_param('action', 'new', PARAM_ALPHA);

@@ -26,6 +26,7 @@
 require_once('../../config.php');
 
 require_login(null, false);
+
 if (isguestuser()) {
     throw new moodle_exception('cannotviewreport', 'error');
 }

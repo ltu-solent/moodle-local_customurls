@@ -24,13 +24,14 @@
  */
 
 namespace local_customurls\forms;
+
+defined('MOODLE_INTERNAL') || die();
+
 require_once("$CFG->libdir/formslib.php");
 
 use core\form\persistent;
 use html_writer;
 use lang_string;
-
-defined('MOODLE_INTERNAL') || die();
 
 class customurl_form extends persistent {
 
