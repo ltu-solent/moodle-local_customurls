@@ -52,6 +52,9 @@ class checkurls extends \core\task\scheduled_task {
             $customurl->oldstatus = $oldstatus;
             $statusstring = ($urlexists) ? 'urlunbroken' : 'urlbroken';
             mtrace(get_string($statusstring, 'local_customurls'. $customurl));
+            $record = new \stdClass();
+            $record->id = $customurl->id;
+            $record->isbroken = $customurl->isbroken;
             $DB->update_record('customurls', $customurl);
         }
 
