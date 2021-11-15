@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * 404 page
+ * Custom urls scheduled tasks
  *
  * @package   local_customurls
  * @author    Mark Sharp <mark.sharp@solent.ac.uk>
@@ -23,22 +23,16 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
+defined('MOODLE_INTERNAL') || die();
 
-$customurl = \local_customurls\api::get_customurl($_SERVER['REQUEST_URI']);
-
-if ($customurl) {
-    header('Location:' . $customurl->url);
-    exit();
-}
-
-$PAGE->set_context ( context_system::instance () );
-$PAGE->set_pagelayout ('base');
-$PAGE->set_title (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_heading (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_url (new moodle_url('/404.php'));
-
-echo $OUTPUT->header();
-$content = new \local_customurls\output\fourohfour();
-echo $OUTPUT->render($content);
-echo $OUTPUT->footer();
+$tasks = [
+    [
+        'classname' => 'local_customurls\task\checkurls',
+        'blocking' => 0,
+        'minute' => '35',
+        'hour' => '23',
+        'day' => '*',
+        'dayofweek' => '6',
+        'month' => '*'
+    ]
+];

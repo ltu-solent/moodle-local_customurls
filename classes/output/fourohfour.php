@@ -36,14 +36,44 @@ defined('MOODLE_INTERNAL') || die();
 class fourohfour implements renderable, templatable {
 
     public function export_for_template(renderer_base $output) {
+        global $OUTPUT, $PAGE;
+        $config = get_config('local_customurls');
         $requesturi = $_SERVER['REQUEST_URI'];
         $fullurl = new moodle_url($requesturi);
         $data = new stdclass();
         $data->fullurl = $fullurl->out();
-        $data->now = date ("m/d/Y h:i:s a");
         $mainadmin = get_admin();
         $data->contactemail = $mainadmin->email;
         $data->contactname = fullname($mainadmin);
+        if (empty($config->fourohfourmessage)) {
+            $data->fourohfourmessage = get_string('requestedurlnotfound', 'local_customurls');
+        } else {
+            $data->fourohfourmessage = $config->fourohfourmessage;
+        }
+
+        if ($config->backgroundimage) {
+            $data->backgroundurl = moodle_url::make_pluginfile_url(
+                \context_system::instance()->id,
+                'local_customurls',
+                'customurls',
+                null,
+                null,
+                $config->backgroundimage)->out();
+        }
+
+        if ($config->searchbox) {
+            $courserenderer = $PAGE->get_renderer('core', 'course');
+            $data->searchbox = $courserenderer->course_search_form('');
+        }
+
+        if (isloggedin() && $config->emailforloggedinusers) {
+            $params = array('action' => 'sendmessage', 'requesturi' => $data->fullurl, 'sesskey' => sesskey());
+            $messageurl = new moodle_url('/local/customurls/message.php', $params);
+            $messagebutton = new \single_button($messageurl, get_string('tellus', 'local_customurls'), 'post', true);
+            $data->messagehelp = get_string('messagehelp', 'local_customurls');
+            $data->messagebtn = $OUTPUT->render($messagebutton);
+        }
+
         return $data;
     }
 }

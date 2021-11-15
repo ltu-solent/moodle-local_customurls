@@ -54,10 +54,21 @@ if ($canedit) {
     new pix_icon('e/insert_edit_link', get_string('newcustomurl', 'local_customurls')));
     echo $OUTPUT->render($new);
 }
+$where = '1=1';
+$table->set_sql('*', "{customurls}", $where);
+$searchform = new \local_customurls\forms\search_form();
+if ($formdata = $searchform->get_data()) {
+    // Only display unbroken links? We might sometimes get false negatives.
+    // Search also for space replacing with "-" or ""?
+    $where = 'custom_name LIKE :query';
+    $table->set_sql('*', "{customurls}", $where, ['query' => '%' . $formdata->query . '%']);
+}
 
-$table->set_sql('*', "{customurls}", '1=1');
+echo $searchform->display();
+
+
 
 $table->define_baseurl(new moodle_url("/local/customurls/index.php"));
-$table->out(10, false);
+$table->out(100, false);
 
 echo $OUTPUT->footer();

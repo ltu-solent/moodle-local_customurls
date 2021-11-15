@@ -52,7 +52,7 @@ class customurl_form extends persistent {
         $mform->addRule('url', get_string('required'), 'required', null, 'client');
         $mform->addHelpButton('url', 'url', 'local_customurls');
 
-        $whitelist = explode(',', trim($config->whitelistdomainpattern));
+        $whitelist = explode("\n", trim($config->whitelistdomainpattern));
         if (!empty($config->whitelistdomainpattern) && count($whitelist) > 0) {
             $whitelisthtml = html_writer::start_tag('ul');
             foreach ($whitelist as $item) {
@@ -73,6 +73,9 @@ class customurl_form extends persistent {
             'wrap="virtual" rows="5" cols="50"');
         $mform->addRule('info', new lang_string('required'), 'required', null, 'client');
         $mform->addHelpButton('info', 'info', 'local_customurls');
+
+        $mform->addElement('checkbox', 'isbroken', new lang_string('isbroken', 'local_customurls'));
+        $mform->addHelpButton('isbroken', 'isbroken', 'local_customurls');
 
         $this->add_action_buttons();
     }

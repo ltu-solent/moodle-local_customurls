@@ -32,7 +32,6 @@ function xmldb_local_customurls_upgrade($oldversion) {
 
     $result = true;
 
-    /// Add a new column newcol to the mdl_myqtype_options
     if ($oldversion < 2012061924) {
 
         // Define field id to be added to customurls.
@@ -44,14 +43,14 @@ function xmldb_local_customurls_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // customurls savepoint reached.
+        // Customurls savepoint reached.
         upgrade_plugin_savepoint(true, $oldversion, 'local', 'customurls');
     }
-    
+
     if ($oldversion < 2021090103) {
         $table = new xmldb_table('customurls');
         $field = new xmldb_field('lastaccessed', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
-        // Conditionally launch add field grade_forum.
+        // Conditionally launch add field.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
@@ -61,6 +60,7 @@ function xmldb_local_customurls_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
         $index = new xmldb_index('customname', XMLDB_INDEX_UNIQUE, array('custom_name'));
+        // NOTE: Check for duplicate customnames before upgrading as this may cause duplicate keys.
         if (!$dbman->index_exists($table, $index)) {
             $dbman->add_index($table, $index);
         }
@@ -72,6 +72,19 @@ function xmldb_local_customurls_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2021090103, 'local', 'customurls');
     }
 
+    if ($oldversion < 2021090106) {
+        $table = new xmldb_table('customurls');
+        $index = new xmldb_index('url', XMLDB_INDEX_NOTUNIQUE, array('url'));
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+        $table = new xmldb_table('customurls');
+        $field = new xmldb_field('isbroken', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0);
+
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+
     return $result;
 }
-?>

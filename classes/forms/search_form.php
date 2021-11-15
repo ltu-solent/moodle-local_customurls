@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * 404 page
+ * Search form for the manage page
  *
  * @package   local_customurls
  * @author    Mark Sharp <mark.sharp@solent.ac.uk>
@@ -23,22 +23,23 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
+namespace local_customurls\forms;
 
-$customurl = \local_customurls\api::get_customurl($_SERVER['REQUEST_URI']);
+defined('MOODLE_INTERNAL') || die();
 
-if ($customurl) {
-    header('Location:' . $customurl->url);
-    exit();
+require_once("$CFG->libdir/formslib.php");
+
+use lang_string;
+use moodleform;
+
+class search_form extends moodleform {
+
+    public function definition() {
+        $mform = $this->_form;
+
+        $mform->addElement('text', 'query', new lang_string('query', 'local_customurls'));
+        $mform->setType('query', PARAM_ALPHANUMEXT);
+
+        $this->add_action_buttons(false, get_string('query', 'local_customurls'));
+    }
 }
-
-$PAGE->set_context ( context_system::instance () );
-$PAGE->set_pagelayout ('base');
-$PAGE->set_title (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_heading (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_url (new moodle_url('/404.php'));
-
-echo $OUTPUT->header();
-$content = new \local_customurls\output\fourohfour();
-echo $OUTPUT->render($content);
-echo $OUTPUT->footer();

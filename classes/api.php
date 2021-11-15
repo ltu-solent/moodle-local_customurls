@@ -25,11 +25,10 @@
 
 namespace local_customurls;
 
-use curl;
-use stdClass;
-
 defined('MOODLE_INTERNAL') || die();
 
+use moodle_url;
+use stdClass;
 /**
  * Api class
  */
@@ -42,19 +41,20 @@ class api {
      */
     public static function url_exists($url) {
         global $CFG;
+        require_once($CFG->libdir . '/filelib.php');
         $url = trim($url);
         if (empty($url)) {
             return false;
         }
-        $debugging = isset($CFG->debug);
-        if ($debugging) {
-            return true;
-        }
-        $curl = new curl(['proxy' => true, 'debug' => $debugging]);
+
+        $curl = new \curl();
         $curl->setopt(['CURLOPT_URL' => $url]);
         $response = $curl->head($url);
-        $info = $curl->get_info();
-        return ($info['http_code'] == 200);
+        if ($curl->errno == 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -75,6 +75,13 @@ class api {
         $record->accesscount++;
         $DB->update_record('customurls', $record);
         return $record;
+    }
+
+    public static function get_customname_as_url($name) {
+        if (strpos($name, '/') !== 0) {
+            $name = '/' . $name;
+        }
+        return new moodle_url($name);
     }
 
     /**

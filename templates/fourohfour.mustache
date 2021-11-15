@@ -1,3 +1,12 @@
-{{#str}}requestedurlnotfound, local_customurls, {{{fullurl}}}{{/str}}
+<div class="local_customurls-container container-fluid pt-5" style="background-image: url({{backgroundurl}});">
+    <div class="local_customurls-contentarea">
+        <h3>{{#str}}pagenotfound, local_customurls{{/str}}</h3>
+        {{{fourohfourmessage}}}
+        {{{searchbox}}}
+        {{#messagebtn}}
+            <p>{{messagehelp}}</p>
+            {{{messagebtn}}}
+        {{/messagebtn}}
 
-{{#str}}contactus, local_customurls, { "contactemail": "{{contactemail}}", "contactname": "{{contactname}}" }{{/str}}
+    </div>
+</div>

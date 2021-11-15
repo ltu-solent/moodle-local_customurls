@@ -66,6 +66,10 @@ class customurl extends persistent {
             'accesscount' => [
                 'type' => PARAM_INT,
                 'default' => 0
+            ],
+            'isbroken' => [
+                'type' => PARAM_BOOL,
+                'default' => false
             ]
         ];
     }
@@ -90,16 +94,17 @@ class customurl extends persistent {
         }
         $whitelist = trim(get_config('local_customurls', 'whitelistdomainpattern'));
         if (!empty($whitelist)) {
-            $targetdomains = explode(',', $whitelist);
+            $targetdomains = explode("\n", $whitelist);
             if (count($targetdomains) > 0) {
                 $ok = false;
                 foreach ($targetdomains as $targetdomain) {
-                    if (strpos($url, $targetdomain) !== false) {
+                    if (strpos($url, trim($targetdomain)) !== false) {
                         $ok = true;
                     }
                 }
                 if (!$ok) {
-                    return new lang_string('invaliddomain', 'local_customurls', $targetdomain);
+                    mtrace($url);
+                    return new lang_string('invaliddomain', 'local_customurls', join(", ", $targetdomains));
                 }
             }
         }

@@ -25,6 +25,8 @@
 
 namespace local_customurls\tables;
 
+use local_customurls\api;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->libdir/tablelib.php");
@@ -32,6 +34,7 @@ use context_system;
 use core_user;
 use html_writer;
 use moodle_url;
+use pix_icon;
 use table_sql;
 
 class customurls_table extends table_sql {
@@ -47,6 +50,7 @@ class customurls_table extends table_sql {
                 'custom_name',
                 'url',
                 'lastaccessed',
+                'isbroken',
                 'accesscount',
                 'actions'
             ];
@@ -56,6 +60,7 @@ class customurls_table extends table_sql {
                 get_string('customlink', 'local_customurls'),
                 get_string('redirectto', 'local_customurls'),
                 get_string('lastaccessed', 'local_customurls'),
+                get_string('urlstatus', 'local_customurls'),
                 get_string('accesscount', 'local_customurls'),
                 get_string('actions', 'local_customurls')
             ];
@@ -91,10 +96,41 @@ class customurls_table extends table_sql {
         }
     }
 
+    public function col_isbroken($col) {
+        global $OUTPUT;
+        $status = 'statusok';
+        $icon = 'unflagged';
+        if ($col->isbroken) {
+            $status = 'statusbroken';
+            $icon = 'flagged';
+        }
+        $pix = new pix_icon('i/' . $icon, new \lang_string($status, 'local_customurls'));
+        return $OUTPUT->render($pix);
+    }
+
+    /**
+     * Returns a linked custom_name
+     *
+     * @param stdClass $col
+     * @return string link html
+     */
+    public function col_custom_name($col) {
+        $customurl = api::get_customname_as_url($col->custom_name);
+        return html_writer::link($customurl, $col->custom_name);
+    }
+
+    public function col_url($col) {
+        $truncatedurl = \core_text::substr($col->url, 0, 100);
+        if ($truncatedurl != $col->url) {
+            $truncatedurl .= '...';
+        }
+        return html_writer::link($col->url, $truncatedurl);
+    }
+
     public function col_user($col) {
         // Check for deleted user.
         $createdby = core_user::get_user($col->user);
-        if ($createdby->deleted) {
+        if (!$createdby || $createdby->deleted) {
             return get_string('deleteduser', 'local_customurls');
         }
         return fullname($createdby);

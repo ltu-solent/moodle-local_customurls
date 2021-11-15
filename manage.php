@@ -127,6 +127,11 @@ if ($action == 'delete') {
         $heading = new lang_string('editcustomurl', 'local_customurls');
     }
     echo html_writer::tag('h3', $heading);
+    $extrahelp = get_config('local_customurls', 'customurlshelp');
+    if ($extrahelp) {
+        echo $extrahelp;
+    }
+
     $form->display();
 }
 
