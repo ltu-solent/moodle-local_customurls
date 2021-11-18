@@ -23,7 +23,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
+if (!$CFG) {
+    require_once('../../config.php');
+}
+
 
 $customurl = \local_customurls\api::get_customurl($_SERVER['REQUEST_URI']);
 
