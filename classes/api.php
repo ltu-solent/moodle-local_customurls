@@ -48,13 +48,13 @@ class api {
         }
 
         $curl = new \curl();
-        $curl->setopt(['CURLOPT_URL' => $url]);
-        $response = $curl->head($url);
-        if ($curl->errno == 0) {
-            return true;
-        }
-
-        return false;
+        $curl->setopt([
+            'CURLOPT_URL' => $url,
+            'CURLOPT_CONNECTTIMEOUT' => 10
+        ]);
+        $curl->head($url);
+        $info = $curl->get_info();
+        return ($info['http_code'] == 200);
     }
 
     /**

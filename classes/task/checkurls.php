@@ -31,14 +31,22 @@ defined('MOODLE_INTERNAL') || die();
 
 class checkurls extends \core\task\scheduled_task {
 
+    // Use the logging trait to get some nice, juicy, logging.
+    use \core\task\logging_trait;
+
     public function get_name() {
         return get_string('checkurls', 'local_customurls');
     }
 
     public function execute() {
         global $DB;
-        // Get them all. Might need to increase timeout?
+        // Get them all.
         $customurls = $DB->get_records('customurls');
+        $count = count($customurls);
+        $updates = 0;
+        // Raise the time limit.
+        \core_php_time_limit::raise();
+        $this->log_start("Checking {$count} customurls", 1);
         foreach ($customurls as $customurl) {
             $urlexists = api::url_exists($customurl->url);
             if (!$urlexists && $customurl->isbroken) {
@@ -47,14 +55,16 @@ class checkurls extends \core\task\scheduled_task {
             if ($urlexists && !$customurl->isbroken) {
                 continue;
             }
-            $customurl->isbroken = $urlexists;
+            $customurl->isbroken = !$urlexists;
             $statusstring = ($urlexists) ? 'urlunbroken' : 'urlbroken';
-            mtrace(get_string($statusstring, 'local_customurls', $customurl));
+            $this->log(get_string($statusstring, 'local_customurls', $customurl));
             $record = new \stdClass();
             $record->id = $customurl->id;
             $record->isbroken = $customurl->isbroken;
             $DB->update_record('customurls', $record);
+            $updates++;
         }
+        $this->log_finish("{$updates} updates made.", 1);
 
         return true;
     }
