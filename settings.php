@@ -41,6 +41,11 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtextarea('local_customurls/whitelistdomainpattern',
         $name, $desc, $domain, PARAM_RAW));
 
+    $name = new lang_string('checkurl', 'local_customurls');
+    $desc = new lang_string('checkurl_desc', 'local_customurls');
+    $settings->add(new admin_setting_configcheckbox('local_customurls/checkurl',
+        $name, $desc, 1));
+
     $name = new lang_string('contactemail', 'local_customurls');
     $desc = new lang_string('contactemail_desc', 'local_customurls');
     $settings->add(new admin_setting_configtext('local_customurls/contactemail',

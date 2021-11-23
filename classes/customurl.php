@@ -117,9 +117,13 @@ class customurl extends persistent {
         if ($curlhelper->url_is_blocked($url)) {
             return new lang_string('blockedurl', 'local_customurls', $url);
         }
-        if (!api::url_exists($url)) {
-            return new lang_string('urlnotexists', 'local_customurls');
+        $checkurl = get_config('local_customurls', 'checkurl');
+        if ($checkurl) {
+            if (!api::url_exists($url)) {
+                return new lang_string('urlnotexists', 'local_customurls');
+            }
         }
+
         return true;
     }
 }

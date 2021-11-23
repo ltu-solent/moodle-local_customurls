@@ -33,6 +33,8 @@ $string['backgroundimage_desc'] = 'Background image behind the message area';
 $string['blockedurl'] = 'The url ({$a}) has been blocked by the Moodle administrator.';
 $string['broken'] = 'Broken url';
 
+$string['checkurl'] = 'Check url';
+$string['checkurl_desc'] = 'Check the url exists when saving or editing.';
 $string['checkurls'] = 'Check urls';
 $string['confirmdelete'] = 'Confirm deletion of {$a}';
 $string['contactemail'] = 'Contact email';
