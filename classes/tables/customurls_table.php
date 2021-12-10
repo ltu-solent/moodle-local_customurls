@@ -45,6 +45,7 @@ class customurls_table extends table_sql {
         $this->useridfield = 'user';
         if ($canmanage) {
             $columns = [
+                'id',
                 'user',
                 'info',
                 'custom_name',
@@ -55,6 +56,7 @@ class customurls_table extends table_sql {
                 'actions'
             ];
             $columnheadings = [
+                get_string('id', 'local_customurls'),
                 get_string('createdby', 'local_customurls'),
                 get_string('description', 'local_customurls'),
                 get_string('customlink', 'local_customurls'),
@@ -66,11 +68,13 @@ class customurls_table extends table_sql {
             ];
         } else {
             $columns = [
+                'id',
                 'info',
                 'custom_name',
                 'url'
             ];
             $columnheadings = [
+                get_string('id', 'local_customurls'),
                 get_string('description', 'local_customurls'),
                 get_string('customlink', 'local_customurls'),
                 get_string('redirectto', 'local_customurls')
@@ -80,6 +84,7 @@ class customurls_table extends table_sql {
         $this->define_headers($columnheadings);
         $this->no_sorting('actions');
         $this->no_sorting('info');
+        $this->sortable(true, 'id', SORT_DESC);
         $this->collapsible(false);
     }
 

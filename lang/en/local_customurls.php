@@ -71,6 +71,7 @@ $string['emailsubject'] = 'Missing page in Moodle';
 $string['fourohfourmessage'] = '404 Messsage';
 $string['fourohfourmessage_desc'] = 'The message you want to display to users';
 
+$string['id'] = 'id';
 $string['info'] = 'Description';
 $string['info_help'] = 'A short description indicating what content is to be expected at the original url.
 Please avoid using people\'s names here as this information is publicly available.';
