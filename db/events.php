@@ -15,16 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file
+ * Event observers
  *
- * @package   local_customurls
+ * @package   local_mybookmarks
  * @author    Mark Sharp <mark.sharp@solent.ac.uk>
- * @copyright 2021 Solent University {@link https://www.solent.ac.uk}
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2021090110;
-$plugin->requires = 2020060900;
-$plugin->component = 'local_customurls';
+$observers = [
+    [
+        'eventname' => '\core\event\user_deleted',
+        'callback' => '\local_customurls\observers::user_deleted'
+    ]
+];
