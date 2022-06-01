@@ -17,7 +17,6 @@
 namespace local_customurls;
 
 use advanced_testcase;
-use stdClass;
 
 /**
  * Observers test
@@ -35,20 +34,25 @@ class local_customurls_observers_testcase extends advanced_testcase {
         $this->resetAfterTest();
         $user = $this->getDataGenerator()->create_user();
         $this->setUser($user);
+        $adminuserid = get_admin()->id;
+        set_config('checkurl', 0, 'local_customurls');
+
         $cugenerator = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         // No need to check the urls are valid.
-        set_config('checkurl', 0, 'local_customurls');
+
         $urlscourses = $cugenerator->setup_courses_and_customurls(2);
 
         $count = $DB->count_records('customurls', ['user' => $user->id]);
         $this->assertEquals(2, $count);
+        // Ownership is going to transfer to siteadmin - check they don't have any bookmarks.
+        $count = $DB->count_records('customurls', ['user' => $adminuserid]);
+        $this->assertEquals(0, $count);
 
         delete_user($user);
         $count = $DB->count_records('customurls', ['user' => $user->id]);
         $this->assertEquals(0, $count);
 
         // Ownership transfers to the main siteadmin, rather than deleting the urls.
-        $adminuserid = get_admin()->id;
         $count = $DB->count_records('customurls', ['user' => $adminuserid]);
         $this->assertEquals(2, $count);
     }
