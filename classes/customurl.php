@@ -103,8 +103,12 @@ class customurl extends persistent {
                     }
                 }
                 if (!$ok) {
-                    mtrace($url);
-                    return new lang_string('invaliddomain', 'local_customurls', join(", ", $targetdomains));
+                    // mtrace($url);
+                    return new lang_string('invaliddomain', 'local_customurls', [
+                            'domains' => join(", ", $targetdomains),
+                            'url' => $url
+                        ]
+                    );
                 }
             }
         }
@@ -124,6 +128,14 @@ class customurl extends persistent {
             }
         }
 
+        return true;
+    }
+
+    protected function validate_custom_name($customname) {
+        // Do not allow url type chars (?,&,%,=,# or spaces)
+        if (preg_match('/[\?&%=# ]/', $customname, $matches) !== 0) {
+            return new lang_string('invalidcharsincustomname', 'local_customurls');
+        }
         return true;
     }
 }

@@ -67,6 +67,14 @@ class api {
     public static function get_customurl($uri) {
         global $DB;
         $uri = trim($uri, "/");
+        // Unless we prohibit ? in the custom_name field, it could be possible there is more
+        // than one ? added to the url. So pick the last one. But this would mismatch where there
+        // is just one legitimate ?. So we need to ban it altogether.
+        // Perhaps add a check of some sort in the upgrade.php file. But what to do with now illegal entries?
+        $lastq = strrpos($uri, '?');
+        if ($lastq !== false) {
+            $uri = substr($uri, 0, $lastq);
+        }
         $record = $DB->get_record('customurls', ['custom_name' => $uri]);
         if (!$record) {
             return false;
