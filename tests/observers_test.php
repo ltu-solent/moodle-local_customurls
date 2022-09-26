@@ -27,7 +27,7 @@ use advanced_testcase;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-class local_customurls_observers_testcase extends advanced_testcase {
+class local_customurls_observers_test extends advanced_testcase {
 
     public function test_delete_user() {
         global $DB;
@@ -41,7 +41,6 @@ class local_customurls_observers_testcase extends advanced_testcase {
         // No need to check the urls are valid.
 
         $urlscourses = $cugenerator->setup_courses_and_customurls(2);
-
         $count = $DB->count_records('customurls', ['user' => $user->id]);
         $this->assertEquals(2, $count);
         // Ownership is going to transfer to siteadmin - check they don't have any bookmarks.

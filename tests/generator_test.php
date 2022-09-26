@@ -25,12 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-class local_customurls_generator_testcase extends advanced_testcase {
+class local_customurls_generator_test extends advanced_testcase {
     public function test_create() {
         global $DB;
         $this->resetAfterTest();
         $generator = $this->getDataGenerator()->get_plugin_generator('local_customurls');
-
+        // Doesn't work in docker context for testing, so turning off check.
+        set_config('checkurl', 0, 'local_customurls');
         $count = $DB->count_records('customurls');
         $customurl = $generator->create_customurl([
             'custom_name' => 'cu1',
@@ -45,6 +46,8 @@ class local_customurls_generator_testcase extends advanced_testcase {
     public function test_setup_courses_and_customurls() {
         global $DB;
         $this->resetAfterTest();
+        // Doesn't work in docker context for testing, so turning off check.
+        set_config('checkurl', 0, 'local_customurls');
         $num = 2;
         $generator = $this->getDataGenerator()->get_plugin_generator('local_customurls');
 
