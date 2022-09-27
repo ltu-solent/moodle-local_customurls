@@ -25,7 +25,8 @@
 
 namespace local_customurls;
 
-defined('MOODLE_INTERNAL') || die();
+use advanced_testcase;
+
 
 class generator_test extends advanced_testcase {
     public function test_create() {

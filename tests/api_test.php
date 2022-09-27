@@ -22,13 +22,14 @@
  * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace local_customurls;
 
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-class local_customurls_api_testcase extends advanced_testcase {
-    public function setUp() {
+class api_test extends advanced_testcase {
+    public function setUp(): void {
         $this->resetAfterTest();
         set_config('checkurl', 0, 'local_customurls');
         $user = $this->getDataGenerator()->create_user();
@@ -40,20 +41,21 @@ class local_customurls_api_testcase extends advanced_testcase {
      *
      * @return void
      */
-    public function test_get_customurl($custom_name, $status) {
+    public function test_get_customurl($customname, $status) {
         $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
-        $customurl = $gen->create_customurl(['custom_name' => $custom_name, 'url' => '/my']);
+        $customurl = $gen->create_customurl(['custom_name' => $customname, 'url' => '/my']);
         $this->assertNotFalse($customurl);
-        $this->assertSame($custom_name, $customurl->get('custom_name'));
-        $geturl = local_customurls\api::get_customurl($custom_name);
+        $this->assertSame($customname, $customurl->get('custom_name'));
+        $geturl = local_customurls\api::get_customurl($customname);
         $this->assertNotFalse($geturl);
-        $this->assertSame($geturl->custom_name, $custom_name);
+        $this->assertSame($geturl->custom_name, $customname);
 
         // Should also be resilient to extra params being added by the user.
-        $added = '?utm_source=Southampton%20Solent%20University&utm_medium=email&utm_campaign=12345678_JI%202022%2019%20August&dm_i=MMMM%2CMMMMMM%2CMMMMMM%2CMMMMM%2C1';
-        $geturl = local_customurls\api::get_customurl($custom_name . $added);
+        $added = '?utm_source=Southampton%20Solent%20University&utm_medium=email' .
+            '&utm_campaign=12345678_JI%202022%2019%20August&dm_i=MMMM%2CMMMMMM%2CMMMMMM%2CMMMMM%2C1';
+        $geturl = local_customurls\api::get_customurl($customname . $added);
         $this->assertNotFalse($geturl);
-        $this->assertSame($geturl->custom_name, $custom_name);
+        $this->assertSame($geturl->custom_name, $customname);
     }
 
     public function get_customurl_provider(): array {

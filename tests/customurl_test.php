@@ -29,7 +29,7 @@ use advanced_testcase;
 use Exception;
 
 class customurl_test extends advanced_testcase {
-    public function setUp() {
+    public function setUp(): void {
         $this->resetAfterTest();
         // Check url is off as it's a little unreliable to do remote tests. The url is still validated for being well-formed.
         // And checked against a whitelist and blocked urls.
