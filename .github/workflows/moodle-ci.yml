@@ -34,9 +34,10 @@ jobs:
           - php: '8.0'
             moodle-branch: 'MOODLE_400_STABLE'
             database: 'mariadb'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_311_STABLE'
-            database: 'pgsql'
+          # Excluding pgsql for now as user field name is reserved.
+          # - php: '7.4'
+          #   moodle-branch: 'MOODLE_311_STABLE'
+          #   database: 'pgsql'
           - php: '7.4'
             moodle-branch: 'MOODLE_39_STABLE'
             database: 'mariadb'
