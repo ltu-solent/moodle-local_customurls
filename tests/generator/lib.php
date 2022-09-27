@@ -24,7 +24,14 @@
  */
 
 use local_customurls\api;
-
+/**
+ * Generator file
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class local_customurls_generator extends component_generator_base {
 
     /** @var int Number of created customurls. */
@@ -41,6 +48,12 @@ class local_customurls_generator extends component_generator_base {
         $this->customurlscount = 0;
     }
 
+    /**
+     * Helper to generate a customurl record
+     *
+     * @param array|stdClass $record
+     * @return \local_customurls\customurl
+     */
     public function create_customurl($record = null) {
         $this->customurlscount++;
         $i = $this->customurlscount;

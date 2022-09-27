@@ -23,7 +23,12 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+/**
+ * Upgrade function
+ *
+ * @param int $oldversion
+ * @return bool
+ */
 function xmldb_local_customurls_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
@@ -42,7 +47,7 @@ function xmldb_local_customurls_upgrade($oldversion) {
         }
 
         // Customurls savepoint reached.
-        upgrade_plugin_savepoint(true, $oldversion, 'local', 'customurls');
+        upgrade_plugin_savepoint(true, 2012061924, 'local', 'customurls');
     }
 
     if ($oldversion < 2021090103) {
@@ -82,6 +87,8 @@ function xmldb_local_customurls_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
+
+        upgrade_plugin_savepoint(true, 2021090106, 'local', 'customurls');
     }
 
     return $result;

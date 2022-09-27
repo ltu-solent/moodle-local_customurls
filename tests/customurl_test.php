@@ -28,7 +28,21 @@ namespace local_customurls;
 use advanced_testcase;
 use Exception;
 
+/**
+ * Customurl test
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class customurl_test extends advanced_testcase {
+
+    /**
+     * Setup
+     *
+     * @return void
+     */
     public function setUp(): void {
         $this->resetAfterTest();
         // Check url is off as it's a little unreliable to do remote tests. The url is still validated for being well-formed.
@@ -39,6 +53,9 @@ class customurl_test extends advanced_testcase {
     }
 
     /**
+     * Test setting customurl with data from provider
+     * @param array $data Data required to create customurl
+     * @param bool $status Expected result
      * @dataProvider set_customurl_provider
      *
      * @return void
@@ -59,6 +76,11 @@ class customurl_test extends advanced_testcase {
         }
     }
 
+    /**
+     * Provider for test_set_customurl
+     *
+     * @return array
+     */
     public function set_customurl_provider(): array {
         return [
             'plainpath' => [
@@ -162,7 +184,12 @@ class customurl_test extends advanced_testcase {
 
     }
 
-    public function validate_url_provider() {
+    /**
+     * Provider for validate_url
+     *
+     * @return array
+     */
+    public function validate_url_provider(): array {
         return [
             'google' => ['https://www.google.com'],
             'wikipedia' => ['https://en.wikipedia.org/wiki/GNOME'],

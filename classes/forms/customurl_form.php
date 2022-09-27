@@ -33,6 +33,14 @@ use core\form\persistent;
 use html_writer;
 use lang_string;
 
+/**
+ * Customurl form
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class customurl_form extends persistent {
 
     /**
@@ -42,6 +50,11 @@ class customurl_form extends persistent {
      */
     protected static $persistentclass = 'local_customurls\\customurl';
 
+    /**
+     * Form definition
+     *
+     * @return void
+     */
     public function definition() {
         global $CFG, $USER;
         $mform = $this->_form;

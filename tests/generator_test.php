@@ -27,7 +27,14 @@ namespace local_customurls;
 
 use advanced_testcase;
 
-
+/**
+ * Generator test
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class generator_test extends advanced_testcase {
     public function test_create() {
         global $DB;

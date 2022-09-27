@@ -24,10 +24,20 @@
  */
 namespace local_customurls;
 
+use advanced_testcase;
+
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
-
+/**
+ * API test
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \local\customurls\api
+ */
 class api_test extends advanced_testcase {
     public function setUp(): void {
         $this->resetAfterTest();
@@ -37,6 +47,9 @@ class api_test extends advanced_testcase {
     }
 
     /**
+     * Get customurl function
+     * @param string $customname Name of path required
+     * @param bool $status Expected outcome
      * @dataProvider get_customurl_provider
      *
      * @return void
@@ -46,18 +59,23 @@ class api_test extends advanced_testcase {
         $customurl = $gen->create_customurl(['custom_name' => $customname, 'url' => '/my']);
         $this->assertNotFalse($customurl);
         $this->assertSame($customname, $customurl->get('custom_name'));
-        $geturl = local_customurls\api::get_customurl($customname);
+        $geturl = \local_customurls\api::get_customurl($customname);
         $this->assertNotFalse($geturl);
         $this->assertSame($geturl->custom_name, $customname);
 
         // Should also be resilient to extra params being added by the user.
         $added = '?utm_source=Southampton%20Solent%20University&utm_medium=email' .
             '&utm_campaign=12345678_JI%202022%2019%20August&dm_i=MMMM%2CMMMMMM%2CMMMMMM%2CMMMMM%2C1';
-        $geturl = local_customurls\api::get_customurl($customname . $added);
+        $geturl = \local_customurls\api::get_customurl($customname . $added);
         $this->assertNotFalse($geturl);
         $this->assertSame($geturl->custom_name, $customname);
     }
 
+    /**
+     * Provider for get_customurl
+     *
+     * @return array
+     */
     public function get_customurl_provider(): array {
         return [
             'plainpath' => [

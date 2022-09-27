@@ -37,7 +37,21 @@ use moodle_url;
 use pix_icon;
 use table_sql;
 
+/**
+ * Customurl table listing all filtered customurls
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class customurls_table extends table_sql {
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $uniqueid
+     */
     public function __construct($uniqueid) {
         parent::__construct($uniqueid);
         $context = context_system::instance();
@@ -88,6 +102,12 @@ class customurls_table extends table_sql {
         $this->collapsible(false);
     }
 
+    /**
+     * Actions column
+     *
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
+     */
     public function col_actions($col) {
         if (has_capability('local/customurls:managecustomurls', context_system::instance())) {
             $params = ['action' => 'edit', 'id' => $col->id];
@@ -101,6 +121,12 @@ class customurls_table extends table_sql {
         }
     }
 
+    /**
+     * IsBroken column
+     *
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
+     */
     public function col_isbroken($col) {
         global $OUTPUT;
         $status = 'statusok';
@@ -124,6 +150,12 @@ class customurls_table extends table_sql {
         return html_writer::link($customurl, $col->custom_name);
     }
 
+    /**
+     * Url column
+     *
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
+     */
     public function col_url($col) {
         $truncatedurl = \core_text::substr($col->url, 0, 100);
         if ($truncatedurl != $col->url) {
@@ -132,6 +164,12 @@ class customurls_table extends table_sql {
         return html_writer::link($col->url, $truncatedurl);
     }
 
+    /**
+     * User column
+     *
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
+     */
     public function col_user($col) {
         // Check for deleted user.
         $createdby = core_user::get_user($col->user);
@@ -141,6 +179,12 @@ class customurls_table extends table_sql {
         return fullname($createdby);
     }
 
+    /**
+     * Last accessed column
+     *
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
+     */
     public function col_lastaccessed($col) {
         if ($col->lastaccessed == 0) {
             return "-";

@@ -17,7 +17,7 @@
 /**
  * Event observers
  *
- * @package   local_mybookmarks
+ * @package   local_customurls
  * @author    Mark Sharp <mark.sharp@solent.ac.uk>
  * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

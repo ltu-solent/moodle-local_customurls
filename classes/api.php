@@ -33,9 +33,8 @@ use stdClass;
 class api {
     /**
      * Check if the URL exist.
-     * @param url (string) URL to check.
-     * @return Returns TRUE if the URL exists; FALSE otherwise.
-     * @public static
+     * @param string $url (string) URL to check.
+     * @return bool Returns TRUE if the URL exists; FALSE otherwise.
      */
     public static function url_exists($url) {
         global $CFG;
@@ -83,7 +82,13 @@ class api {
         return $record;
     }
 
-    public static function get_customname_as_url($name) {
+    /**
+     * Given a path return a url
+     *
+     * @param string $name
+     * @return moodle_url
+     */
+    public static function get_customname_as_url($name): moodle_url {
         if (strpos($name, '/') !== 0) {
             $name = '/' . $name;
         }
@@ -94,7 +99,7 @@ class api {
      * Creates a persistent record from a stdClass
      *
      * @param stdClass $record
-     * @return \local_customurls\customurl
+     * @return customurl
      */
     public static function create_customurl($record) {
         $customurl = new customurl(0, $record);

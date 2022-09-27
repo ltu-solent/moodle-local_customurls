@@ -31,9 +31,22 @@ use renderer_base;
 use stdClass;
 use templatable;
 
-
+/**
+ * 404 page content
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class fourohfour implements renderable, templatable {
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param renderer_base $output
+     * @return stdClass Context data
+     */
     public function export_for_template(renderer_base $output) {
         global $OUTPUT, $PAGE;
         $config = get_config('local_customurls');

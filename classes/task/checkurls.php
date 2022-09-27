@@ -27,16 +27,33 @@ namespace local_customurls\task;
 
 use local_customurls\api;
 
-
+/**
+ * Checkurls task ensures existing urls are still active and flags failures.
+ *
+ * @package   local_customurls
+ * @author    Mark Sharp <mark.sharp@solent.ac.uk>
+ * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class checkurls extends \core\task\scheduled_task {
 
     // Use the logging trait to get some nice, juicy, logging.
     use \core\task\logging_trait;
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return string
+     */
     public function get_name() {
         return get_string('checkurls', 'local_customurls');
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return void
+     */
     public function execute() {
         global $DB;
         // Get them all.

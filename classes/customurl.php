@@ -29,7 +29,9 @@ use core\persistent;
 use lang_string;
 use moodle_url;
 
-
+/**
+ * Customurl persistent class
+ */
 class customurl extends persistent {
     /**
      * Table name for customurls.
@@ -129,6 +131,12 @@ class customurl extends persistent {
         return true;
     }
 
+    /**
+     * Validate customname
+     *
+     * @param string $customname
+     * @return lang_string | bool
+     */
     protected function validate_custom_name($customname) {
         // Do not allow url type chars (?,&,%,=,# or spaces).
         if (preg_match('/[\?&%=# ]/', $customname, $matches) !== 0) {
