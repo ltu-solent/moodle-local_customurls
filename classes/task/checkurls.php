@@ -27,7 +27,6 @@ namespace local_customurls\task;
 
 use local_customurls\api;
 
-defined('MOODLE_INTERNAL') || die();
 
 class checkurls extends \core\task\scheduled_task {
 

@@ -25,8 +25,6 @@
 
 namespace local_customurls;
 
-defined('MOODLE_INTERNAL') || die();
-
 use moodle_url;
 use stdClass;
 /**

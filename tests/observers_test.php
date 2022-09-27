@@ -27,7 +27,7 @@ use advanced_testcase;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-class local_customurls_observers_test extends advanced_testcase {
+class observers_test extends advanced_testcase {
 
     public function test_delete_user() {
         global $DB;

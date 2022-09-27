@@ -29,7 +29,6 @@ use core\persistent;
 use lang_string;
 use moodle_url;
 
-defined('MOODLE_INTERNAL') || die();
 
 class customurl extends persistent {
     /**
