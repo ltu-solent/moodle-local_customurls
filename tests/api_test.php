@@ -95,6 +95,7 @@ class api_test extends advanced_testcase {
                 true
             ]
             // The following can't now be saved, so can't be tested.
+            // phpcs:disable
             // 'urlparam' => [
             //     'path?one=true',
             //     true // Do I want this to pass?
@@ -107,6 +108,7 @@ class api_test extends advanced_testcase {
             //     'space%20one%20two',
             //     true
             // ]
+            // phpcs:enable
         ];
     }
 }

@@ -23,8 +23,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if (!isset($CFG)) {
-    require_once('../../config.php');
+if (!isset($CFG)) { // phpcs:ignore
+    require_once('../../config.php'); // phpcs:ignore
 }
 
 

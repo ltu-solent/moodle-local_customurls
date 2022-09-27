@@ -25,6 +25,7 @@ use advanced_testcase;
  * @author    Mark Sharp <mark.sharp@solent.ac.uk>
  * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \local_customurls\observers
  */
 class observers_test extends advanced_testcase {
 

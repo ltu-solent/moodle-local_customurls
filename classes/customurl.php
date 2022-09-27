@@ -138,7 +138,7 @@ class customurl extends persistent {
      * @return lang_string | bool
      */
     protected function validate_custom_name($customname) {
-        // Do not allow url type chars (?,&,%,=,# or spaces).
+        // Do not allow url type chars ?&%=# or spaces).
         if (preg_match('/[\?&%=# ]/', $customname, $matches) !== 0) {
             return new lang_string('invalidcharsincustomname', 'local_customurls');
         }
