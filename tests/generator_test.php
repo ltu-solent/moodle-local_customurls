@@ -35,6 +35,7 @@ use advanced_testcase;
  * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \local_customurls_generator
+ * @group sol
  */
 class generator_test extends advanced_testcase {
     public function test_create() {
