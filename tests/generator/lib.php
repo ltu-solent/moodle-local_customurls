@@ -84,7 +84,7 @@ class local_customurls_generator extends component_generator_base {
         $coursesandcustomurls = [];
         for ($i = 0; $i < $count; $i++) {
             $course = $generator->create_course([
-                'shortname' => "CU{$i}"
+                'shortname' => "CU{$i}",
             ]);
             $record = new stdClass();
             $record->custom_name = $course->shortname;
@@ -94,7 +94,7 @@ class local_customurls_generator extends component_generator_base {
             $customurl = $this->create_customurl($record);
             $coursesandcustomurls[] = [
                 'customurl' => $customurl,
-                'course' => $course
+                'course' => $course,
             ];
         }
         return $coursesandcustomurls;

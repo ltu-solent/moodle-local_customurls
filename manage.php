@@ -45,7 +45,7 @@ if (!in_array($action, ['edit', 'delete', 'new'])) {
 }
 $pageparams = [
     'action' => $action,
-    'id' => $id
+    'id' => $id,
 ];
 
 $customurl = null;
@@ -62,7 +62,7 @@ if ($action == 'edit' || $action == 'delete') {
 $customurl = new customurl($id);
 $customdata = [
     'persistent' => $customurl,
-    'user' => $USER->id
+    'user' => $USER->id,
 ];
 
 if ($confirmdelete && confirm_sesskey()) {
@@ -115,7 +115,7 @@ if ($action == 'delete') {
         'action' => 'delete',
         'confirmdelete' => true,
         'id' => $id,
-        'sesskey' => sesskey()
+        'sesskey' => sesskey(),
     ]);
     $deletebutton = new single_button($deleteurl, get_string('delete'), 'post');
     echo $OUTPUT->confirm(

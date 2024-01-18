@@ -26,38 +26,38 @@
 defined('MOODLE_INTERNAL') || die();
 
 
-$capabilities = array(
-    'local/customurls:managecustomurls' => array(
+$capabilities = [
+    'local/customurls:managecustomurls' => [
         'riskbitmask'  => RISK_SPAM | RISK_PERSONAL | RISK_XSS | RISK_CONFIG,
         'captype'      => 'view',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes'   => array(
+        'archetypes'   => [
             'student'        => CAP_PROHIBIT,
             'teacher'        => CAP_PROHIBIT,
             'editingteacher' => CAP_PROHIBIT,
-            'manager'          => CAP_ALLOW
-        )
-    ),
-    'local/customurls:librarycustomurls' => array(
+            'manager'        => CAP_ALLOW,
+        ],
+    ],
+    'local/customurls:librarycustomurls' => [
         'riskbitmask'  => RISK_SPAM | RISK_PERSONAL | RISK_XSS | RISK_CONFIG,
         'captype'      => 'view',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes'   => array(
+        'archetypes'   => [
             'student'        => CAP_PROHIBIT,
             'teacher'        => CAP_PROHIBIT,
             'editingteacher' => CAP_PROHIBIT,
-            'manager'          => CAP_ALLOW
-        )
-    ),
-    'local/customurls:admincustomurls' => array(
+            'manager'         => CAP_ALLOW,
+        ],
+    ],
+    'local/customurls:admincustomurls' => [
         'riskbitmask'  => RISK_SPAM | RISK_PERSONAL | RISK_XSS | RISK_CONFIG,
         'captype'      => 'view',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes'   => array(
+        'archetypes'   => [
             'student'        => CAP_PROHIBIT,
             'teacher'        => CAP_PROHIBIT,
             'editingteacher' => CAP_PROHIBIT,
-            'manager'          => CAP_ALLOW
-        )
-    )
-);
+            'manager'         => CAP_ALLOW,
+        ],
+    ],
+];

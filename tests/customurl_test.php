@@ -64,6 +64,7 @@ class customurl_test extends advanced_testcase {
      * @return void
      */
     public function test_set_customurl($data, $status) {
+        /** @var local_customurls_generator $gen */
         $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         if ($status !== true) {
             $this->expectException($status);
@@ -84,64 +85,64 @@ class customurl_test extends advanced_testcase {
      *
      * @return array
      */
-    public function set_customurl_provider(): array {
+    public static function set_customurl_provider(): array {
         return [
             'plainpath' => [
                 [
                     'custom_name' => 'plainpath',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                true
+                true,
             ],
             'hyphenpath' => [
                 [
                     'custom_name' => 'hyphen-path',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                true
+                true,
             ],
             'slashpath' => [
                 [
                     'custom_name' => 'slash/path',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                true
+                true,
             ],
             'slash-hyphen-path' => [
                 [
                     'custom_name' => 'slash/hythen-path',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                true
+                true,
             ],
             'urlparam' => [
                 [
                     'custom_name' => 'path?one=true',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                \core\invalid_persistent_exception::class // Do I want this to pass?
+                \core\invalid_persistent_exception::class, // Do I want this to pass?
             ],
             'urlparams' => [
                 [
                     'custom_name' => 'path?one=true&two=some-stuff',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                \core\invalid_persistent_exception::class
+                \core\invalid_persistent_exception::class,
             ],
             'spaces' => [
                 [
                     'custom_name' => 'space one two',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                \core\invalid_persistent_exception::class // Do I want this to pass?
+                \core\invalid_persistent_exception::class, // Do I want this to pass?
             ],
             'percent' => [
                 [
                     'custom_name' => 'space%20one%20two',
-                    'url' => '/my'
+                    'url' => '/my',
                 ],
-                \core\invalid_persistent_exception::class
-            ]
+                \core\invalid_persistent_exception::class,
+            ],
         ];
     }
 
@@ -154,6 +155,7 @@ class customurl_test extends advanced_testcase {
      */
     public function test_validate_url($url) {
         global $CFG;
+        /** @var local_customurls_generator $gen */
         $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         // Any url is fine, local or remote, except youtube.
         set_config('whitelistdomainpattern', '', 'local_customurls');
@@ -192,7 +194,7 @@ class customurl_test extends advanced_testcase {
      *
      * @return array
      */
-    public function validate_url_provider(): array {
+    public static function validate_url_provider(): array {
         return [
             'google' => ['https://www.google.com'],
             'wikipedia' => ['https://en.wikipedia.org/wiki/GNOME'],
@@ -200,7 +202,7 @@ class customurl_test extends advanced_testcase {
             'coursesearch' => ['/course/index.php'],
             'youtube' => ['https://www.youtube.com/watch?v=9bZkp7q19f0'],
             'solent' => ['https://solent.ac.uk'],
-            'learn' => ['https://learn.solent.ac.uk']
+            'learn' => ['https://learn.solent.ac.uk'],
         ];
     }
 

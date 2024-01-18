@@ -67,7 +67,7 @@ class customurls_table extends table_sql {
                 'lastaccessed',
                 'isbroken',
                 'accesscount',
-                'actions'
+                'actions',
             ];
             $columnheadings = [
                 get_string('id', 'local_customurls'),
@@ -78,20 +78,20 @@ class customurls_table extends table_sql {
                 get_string('lastaccessed', 'local_customurls'),
                 get_string('urlstatus', 'local_customurls'),
                 get_string('accesscount', 'local_customurls'),
-                get_string('actions', 'local_customurls')
+                get_string('actions', 'local_customurls'),
             ];
         } else {
             $columns = [
                 'id',
                 'info',
                 'custom_name',
-                'url'
+                'url',
             ];
             $columnheadings = [
                 get_string('id', 'local_customurls'),
                 get_string('description', 'local_customurls'),
                 get_string('customlink', 'local_customurls'),
-                get_string('redirectto', 'local_customurls')
+                get_string('redirectto', 'local_customurls'),
             ];
         }
         $this->define_columns($columns);

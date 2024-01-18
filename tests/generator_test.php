@@ -41,14 +41,15 @@ class generator_test extends advanced_testcase {
     public function test_create() {
         global $DB;
         $this->resetAfterTest();
-        $generator = $this->getDataGenerator()->get_plugin_generator('local_customurls');
+        /** @var local_customurls_generator $gen */
+        $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         // Doesn't work in docker context for testing, so turning off check.
         set_config('checkurl', 0, 'local_customurls');
         $count = $DB->count_records('customurls');
-        $customurl = $generator->create_customurl([
+        $customurl = $gen->create_customurl([
             'custom_name' => 'cu1',
             'url' => '/my',
-            'info' => 'cu1 description'
+            'info' => 'cu1 description',
         ]);
         $count++;
         $this->assertEquals($count, $DB->count_records('customurls'));
@@ -61,6 +62,7 @@ class generator_test extends advanced_testcase {
         // Doesn't work in docker context for testing, so turning off check.
         set_config('checkurl', 0, 'local_customurls');
         $num = 2;
+        /** @var local_customurls_generator $generator */
         $generator = $this->getDataGenerator()->get_plugin_generator('local_customurls');
 
         $countcourses = $DB->count_records('course', ['category' => 1]);

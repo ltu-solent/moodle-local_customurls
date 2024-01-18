@@ -47,7 +47,7 @@ class api {
         $curl = new \curl();
         $curl->setopt([
             'CURLOPT_URL' => $url,
-            'CURLOPT_CONNECTTIMEOUT' => 10
+            'CURLOPT_CONNECTTIMEOUT' => 10,
         ]);
         $curl->head($url);
         $info = $curl->get_info();

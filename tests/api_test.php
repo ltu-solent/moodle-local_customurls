@@ -77,24 +77,24 @@ class api_test extends advanced_testcase {
      *
      * @return array
      */
-    public function get_customurl_provider(): array {
+    public static function get_customurl_provider(): array {
         return [
             'plainpath' => [
                 'plainpath',
-                true
+                true,
             ],
             'hyphenpath' => [
                 'hyphen-path',
-                true
+                true,
             ],
             'slashpath' => [
                 'slash/path',
-                true
+                true,
             ],
             'slash-hyphen-path' => [
                 'slash/hythen-path',
-                true
-            ]
+                true,
+            ],
             // The following can't now be saved, so can't be tested.
             // phpcs:disable
             // 'urlparam' => [

@@ -48,30 +48,30 @@ class customurl extends persistent {
         return [
             'user' => [
                 'type' => PARAM_INT,
-                'default' => $USER->id
+                'default' => $USER->id,
             ],
             'info' => [
-                'type' => PARAM_TEXT
+                'type' => PARAM_TEXT,
             ],
             'url' => [
                 'type' => PARAM_TEXT,
-                'default' => '/'
+                'default' => '/',
             ],
             'custom_name' => [
-                'type' => PARAM_PATH
+                'type' => PARAM_PATH,
             ],
             'lastaccessed' => [
                 'type' => PARAM_INT,
-                'default' => 0
+                'default' => 0,
             ],
             'accesscount' => [
                 'type' => PARAM_INT,
-                'default' => 0
+                'default' => 0,
             ],
             'isbroken' => [
                 'type' => PARAM_BOOL,
-                'default' => false
-            ]
+                'default' => false,
+            ],
         ];
     }
 
@@ -106,7 +106,7 @@ class customurl extends persistent {
                 if (!$ok) {
                     return new lang_string('invaliddomain', 'local_customurls', [
                             'domains' => join(", ", $targetdomains),
-                            'url' => $url
+                            'url' => $url,
                         ]
                     );
                 }

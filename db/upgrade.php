@@ -62,7 +62,7 @@ function xmldb_local_customurls_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
-        $index = new xmldb_index('customname', XMLDB_INDEX_UNIQUE, array('custom_name'));
+        $index = new xmldb_index('customname', XMLDB_INDEX_UNIQUE, ['custom_name']);
         // NOTE: Check for duplicate customnames before upgrading as this may cause duplicate keys.
         if (!$dbman->index_exists($table, $index)) {
             $dbman->add_index($table, $index);
@@ -77,7 +77,7 @@ function xmldb_local_customurls_upgrade($oldversion) {
 
     if ($oldversion < 2021090106) {
         $table = new xmldb_table('customurls');
-        $index = new xmldb_index('url', XMLDB_INDEX_NOTUNIQUE, array('url'));
+        $index = new xmldb_index('url', XMLDB_INDEX_NOTUNIQUE, ['url']);
         if (!$dbman->index_exists($table, $index)) {
             $dbman->add_index($table, $index);
         }

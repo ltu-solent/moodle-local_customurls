@@ -79,7 +79,7 @@ class fourohfour implements renderable, templatable {
         }
 
         if (isloggedin() && $config->emailforloggedinusers) {
-            $params = array('action' => 'sendmessage', 'requesturi' => $data->fullurl, 'sesskey' => sesskey());
+            $params = ['action' => 'sendmessage', 'requesturi' => $data->fullurl, 'sesskey' => sesskey()];
             $messageurl = new moodle_url('/local/customurls/message.php', $params);
             $messagebutton = new \single_button($messageurl, get_string('tellus', 'local_customurls'), 'post', true);
             $data->messagehelp = get_string('messagehelp', 'local_customurls');
