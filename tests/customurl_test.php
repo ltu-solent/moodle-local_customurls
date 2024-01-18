@@ -27,6 +27,7 @@ namespace local_customurls;
 
 use advanced_testcase;
 use Exception;
+use local_customurls_generator;
 
 /**
  * Customurl test
@@ -202,5 +203,22 @@ class customurl_test extends advanced_testcase {
             'learn' => ['https://learn.solent.ac.uk']
         ];
     }
-}
 
+    /**
+     * Test the duplicate customnames can't be created.
+     *
+     * @return void
+     */
+    public function test_report_duplicate_url() {
+        $this->expectException(\core\invalid_persistent_exception::class);
+        $this->expectExceptionMessage('custom_name: Custom path already exists');
+        set_config('whitelistdomainpattern', '', 'local_customurls');
+        /** @var local_customurls_generator $gen */
+        $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
+        $url = 'https://www.google.com';
+        $path = 'mypath';
+        $gen->create_customurl(['url' => $url, 'custom_name' => $path]);
+        // Try to create the same customurl.
+        $gen->create_customurl(['url' => $url, 'custom_name' => $path]);
+    }
+}

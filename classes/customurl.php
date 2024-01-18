@@ -142,6 +142,10 @@ class customurl extends persistent {
         if (preg_match('/[\?&%=# ]/', $customname, $matches) !== 0) {
             return new lang_string('invalidcharsincustomname', 'local_customurls');
         }
+        if (static::record_exists_select('custom_name = ?', [$customname])) {
+            return new lang_string('duplicate_customname', 'local_customurls');
+        }
+
         return true;
     }
 }

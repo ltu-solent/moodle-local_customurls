@@ -55,6 +55,7 @@ $string['customurlshelp_desc'] = 'Some extra help displayed on the custom urls e
 $string['deleted'] = '"{$a}" has been deleted.';
 $string['deleteduser'] = 'Deleted user';
 $string['description'] = 'Description';
+$string['duplicate_customname'] = 'Custom path already exists';
 
 $string['editcustomurl'] = 'Edit CustomUrl';
 $string['emailforloggedinusers'] = 'Display contact button (Logged in users)';
