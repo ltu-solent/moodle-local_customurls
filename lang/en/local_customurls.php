@@ -78,6 +78,7 @@ $string['info_help'] = 'A short description indicating what content is to be exp
 Please avoid using people\'s names here as this information is publicly available.';
 $string['invalidcharsincustomname'] = 'Invalid character (You are not permitted to use ?,%,&,=,# or spaces).';
 $string['invaliddomain'] = 'Your url ({$a->url}) is invalid, it must contain one of the following domains: {$a->domains}.';
+$string['invalidid'] = 'The customurl doesn\'t exist.';
 $string['invalidurl'] = 'Your url is not a real url.';
 $string['isbroken'] = 'Is broken?';
 $string['isbroken_help'] = 'You can either manually indicate that a link is broken, or this will be set automatically by

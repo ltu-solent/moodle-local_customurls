@@ -53,7 +53,7 @@ $form = null;
 
 if ($action == 'edit' || $action == 'delete') {
     if ($id == 0) {
-        throw new moodle_exception('invalidid');
+        throw new moodle_exception('invalidid', 'local_customurls');
     }
 } else {
     $action = 'new';
