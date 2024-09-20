@@ -57,6 +57,7 @@ class customurls_table extends table_sql {
         parent::__construct($uniqueid);
         $context = context_system::instance();
         $canmanage = has_capability('local/customurls:managecustomurls', $context);
+        $this->set_attribute('id', 'local_customurls-customurls');
         $this->useridfield = 'user';
         if ($canmanage) {
             $columns = [
