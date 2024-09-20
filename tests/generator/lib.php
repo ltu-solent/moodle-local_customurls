@@ -78,7 +78,7 @@ class local_customurls_generator extends component_generator_base {
      * @param integer $count
      * @return array An array of ['customurl' => {}, 'course' => {}]
      */
-    public function setup_courses_and_customurls($count = 1) : array {
+    public function setup_courses_and_customurls($count = 1): array {
         global $USER;
         $generator = $this->datagenerator;
         $coursesandcustomurls = [];

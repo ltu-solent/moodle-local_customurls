@@ -122,7 +122,6 @@ $PAGE->set_heading(get_string('managecustomurls', 'local_customurls'));
 echo $OUTPUT->header();
 
 if ($action == 'delete') {
-    // TODO: if last accessed less than a month ago, display that information. - Perhaps a threshold setting.
     $heading = new lang_string('confirmdelete', 'local_customurls', $customurl->get('custom_name'));
     echo html_writer::tag('h3', $heading);
     $deleteurl = new moodle_url('/local/customurls/manage.php', [
