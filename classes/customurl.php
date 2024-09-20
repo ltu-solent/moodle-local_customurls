@@ -25,6 +25,7 @@
 
 namespace local_customurls;
 
+use context_system;
 use core\persistent;
 use lang_string;
 use moodle_url;
@@ -142,10 +143,42 @@ class customurl extends persistent {
         if (preg_match('/[\?&%=# ]/', $customname, $matches) !== 0) {
             return new lang_string('invalidcharsincustomname', 'local_customurls');
         }
-        if (static::record_exists_select('custom_name = ?', [$customname])) {
+
+        $currentid = self::get('id');
+        // If this is a new record, and the custom name exists, then reject.
+        if ($currentid == 0 && static::record_exists_select('custom_name = ?', [$customname])) {
             return new lang_string('duplicate_customname', 'local_customurls');
         }
 
+        // If this is an existing record, and the id is not the same as this one, then reject it.
+        $records = static::get_records(['custom_name' => $customname]);
+        foreach ($records as $record) {
+            if ($record->get('id') != $currentid) {
+                return new lang_string('duplicate_customname', 'local_customurls');
+            }
+        }
+
         return true;
+    }
+
+    /**
+     * Reset the count for one or all records
+     *
+     * @param int $id
+     * @return void
+     */
+    public static function reset_count($id = 0) {
+        global $DB;
+        $context = context_system::instance();
+        require_capability('local/customurls:managecustomurls', $context);
+        $params = [];
+        $where = '1 = 1';
+        // If id is 0, then it's a reset all.
+        if ($id > 0) {
+            $params['id'] = $id;
+            $where = 'id = :id';
+        }
+        $sql = "UPDATE {customurls} SET accesscount = 0 WHERE $where";
+        $DB->execute($sql, $params);
     }
 }

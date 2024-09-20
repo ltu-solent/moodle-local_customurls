@@ -23,6 +23,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_customurls\customurl;
+
 require_once('../../config.php');
 
 require_login(null, false);
@@ -36,6 +38,19 @@ $canedit = false;
 if (has_capability('local/customurls:managecustomurls', $context)) {
     $canedit = true;
 }
+$action = optional_param('action', '', PARAM_ALPHA);
+
+if ($canedit) {
+    $resetallconfirm = optional_param('resetallconfirm', 0, PARAM_BOOL);
+    if ($resetallconfirm && confirm_sesskey()) {
+        customurl::reset_count();
+        redirect(new moodle_url('/local/customurls/index.php'),
+            get_string('allcountershavebeenreset', 'local_customurls'),
+            null,
+            \core\output\notification::NOTIFY_SUCCESS
+        );
+    }
+}
 
 $PAGE->set_context($context);
 $PAGE->set_heading(get_string('pluginname', 'local_customurls'));
@@ -45,14 +60,45 @@ $PAGE->set_url($CFG->wwwroot.'/local/customurls/index.php');
 
 echo $OUTPUT->header();
 
+if ($action == 'resetall' && $canedit) {
+    $heading = new lang_string('confirmreset', 'local_customurls');
+    echo html_writer::tag('h3', $heading);
+    $reseturl = new moodle_url('/local/customurls/index.php', [
+        'resetallconfirm' => true,
+        'sesskey' => sesskey(),
+    ]);
+    $resetbutton = new single_button($reseturl, $heading);
+    echo $OUTPUT->confirm(
+        new lang_string('confirmresetdesc', 'local_customurls'),
+        $resetbutton,
+        new moodle_url('/local/customurls/index.php')
+    );
+    echo $OUTPUT->footer();
+    die();
+}
+
 $table = new \local_customurls\tables\customurls_table('customurls');
 $table->no_sorting('actions');
 if ($canedit) {
     $new = new action_link(new moodle_url('/local/customurls/manage.php', ['action' => 'new']),
-    get_string('newcustomurl', 'local_customurls'), null,
-    ['class' => 'btn btn-primary'],
-    new pix_icon('e/insert_edit_link', get_string('newcustomurl', 'local_customurls')));
+        get_string('newcustomurl', 'local_customurls'),
+        null,
+        ['class' => 'btn btn-primary'],
+        new pix_icon('e/insert_edit_link', get_string('newcustomurl', 'local_customurls'))
+    );
     echo $OUTPUT->render($new);
+
+    $resetall = new action_link(
+        new moodle_url('/local/customurls/index.php', [
+            'action' => 'resetall',
+            'sesskey' => sesskey(),
+        ]),
+        get_string('resetcount', 'local_customurls'),
+        null,
+        ['class' => 'btn btn-warning pull-right'],
+        new pix_icon('t/reset', get_string('resetcount', 'local_customurls'))
+    );
+    echo $OUTPUT->render($resetall);
 }
 $where = '1=1';
 $table->set_sql('*', "{customurls}", $where);
@@ -65,8 +111,6 @@ if ($formdata = $searchform->get_data()) {
 }
 
 echo $searchform->display();
-
-
 
 $table->define_baseurl(new moodle_url("/local/customurls/index.php"));
 $table->out(100, false);

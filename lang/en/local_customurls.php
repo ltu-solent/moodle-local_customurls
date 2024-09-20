@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['accesscount'] = 'Access count';
 $string['actions'] = 'Actions';
+$string['allcountershavebeenreset'] = 'All counters have been reset';
 
 $string['backgroundimage'] = 'Background image';
 $string['backgroundimage_desc'] = 'Background image behind the message area';
@@ -37,10 +38,13 @@ $string['checkurl'] = 'Check url';
 $string['checkurl_desc'] = 'Check the url exists when saving or editing.';
 $string['checkurls'] = 'Check urls';
 $string['confirmdelete'] = 'Confirm deletion of {$a}';
+$string['confirmreset'] = 'Confirm reset counters';
+$string['confirmresetdesc'] = 'All counters will be reset to zero. There is no recovery. Are you sure?';
 $string['contactemail'] = 'Contact email';
 $string['contactemail_desc'] = 'Email address to notify page is missing.';
 $string['contactus'] = '<p>If you think this is a server error, please contact us
     at <a href="mailto:{$a->contactemail}">{$a->contactname}</a>.</p>';
+$string['countreset'] = 'Count reset for {$a}';
 $string['createdby'] = 'Created by';
 $string['customlink'] = 'Custom link';
 $string['custom_name'] = 'Custom link';
@@ -102,6 +106,7 @@ $string['requestedurlnotfound'] = '<p>The requested URL was not found on this se
     '<p>If you entered the URL manually please check your spelling and try again.</p>';
 
 $string['redirectto'] = 'Redirect to';
+$string['resetcount'] = 'Reset access count';
 
 $string['searchbox'] = 'Display course search box';
 $string['searchbox_desc'] = 'Display course search box on 404 page';

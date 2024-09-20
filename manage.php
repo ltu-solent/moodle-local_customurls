@@ -40,7 +40,7 @@ require_capability('local/customurls:managecustomurls', $context);
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('admin');
 
-if (!in_array($action, ['edit', 'delete', 'new'])) {
+if (!in_array($action, ['edit', 'delete', 'new', 'resetcount'])) {
     $action = 'new';
 }
 $pageparams = [
@@ -51,7 +51,7 @@ $pageparams = [
 $customurl = null;
 $form = null;
 
-if ($action == 'edit' || $action == 'delete') {
+if ($action == 'edit' || $action == 'delete' || $action == 'resetcount') {
     if ($id == 0) {
         throw new moodle_exception('invalidid', 'local_customurls');
     }
@@ -69,9 +69,21 @@ if ($confirmdelete && confirm_sesskey()) {
     $customname = $customurl->get('custom_name');
     $customurl->delete();
     redirect(new moodle_url('/local/customurls/index.php'),
-    get_string('deleted', 'local_customurls', $customname),
-    null,
-    \core\output\notification::NOTIFY_INFO);
+        get_string('deleted', 'local_customurls', $customname),
+        null,
+        \core\output\notification::NOTIFY_INFO
+    );
+}
+
+if ($action == 'resetcount' && confirm_sesskey()) {
+    $customname = $customurl->get('custom_name');
+    $customurl->set('accesscount', 0);
+    $customurl->save();
+    redirect(new moodle_url('/local/customurls/index.php'),
+        get_string('countreset', 'local_customurls', $customname),
+        null,
+        \core\output\notification::NOTIFY_SUCCESS
+    );
 }
 
 $PAGE->set_url($CFG->wwwroot.'/local/customurls/manage.php', $pageparams);
@@ -85,9 +97,10 @@ if ($formdata = $form->get_data()) {
         $customurl->create();
         // We are done, so let's redirect somewhere.
         redirect(new moodle_url('/local/customurls/index.php'),
-        get_string('newsaved', 'local_customurls'),
-        null,
-        \core\output\notification::NOTIFY_SUCCESS);
+            get_string('newsaved', 'local_customurls'),
+            null,
+            \core\output\notification::NOTIFY_SUCCESS
+        );
     } else {
         $customurl = new customurl($formdata->id);
         if ($action == 'edit') {
@@ -96,7 +109,8 @@ if ($formdata = $form->get_data()) {
             redirect(new moodle_url('/local/customurls/index.php'),
                 get_string('updated', 'local_customurls', $formdata->custom_name),
                 null,
-                \core\output\notification::NOTIFY_SUCCESS);
+                \core\output\notification::NOTIFY_SUCCESS
+            );
         }
     }
 }

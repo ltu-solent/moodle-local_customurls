@@ -35,6 +35,7 @@ use core_user;
 use html_writer;
 use moodle_url;
 use pix_icon;
+use single_button;
 use table_sql;
 
 /**
@@ -109,16 +110,33 @@ class customurls_table extends table_sql {
      * @return string Content for cell
      */
     public function col_actions($col) {
-        if (has_capability('local/customurls:managecustomurls', context_system::instance())) {
-            $params = ['action' => 'edit', 'id' => $col->id];
-            $edit = new moodle_url('/local/customurls/manage.php', $params);
-            $html = html_writer::link($edit, get_string('edit'));
-
-            $params['action'] = 'delete';
-            $delete = new moodle_url('/local/customurls/manage.php', $params);
-            $html .= " " . html_writer::link($delete, get_string('delete'));
-            return $html;
+        global $OUTPUT;
+        $actions = [];
+        if (!has_capability('local/customurls:managecustomurls', context_system::instance())) {
+            return '';
         }
+
+        $params = ['action' => 'edit', 'id' => $col->id];
+        $edit = new moodle_url('/local/customurls/manage.php', $params);
+        $actions[] = html_writer::link($edit,
+            $OUTPUT->pix_icon('i/edit', get_string('edit')));
+
+        if ($col->accesscount > 0) {
+            $reset = new moodle_url('/local/customurls/manage.php', [
+                'id' => $col->id,
+                'sesskey' => sesskey(),
+                'action' => 'resetcount',
+            ]);
+            $actions[] = html_writer::link($reset,
+                $OUTPUT->pix_icon('t/reset', get_string('resetcount', 'local_customurls')));
+        }
+
+        $params['action'] = 'delete';
+        $delete = new moodle_url('/local/customurls/manage.php', $params);
+        $actions[] = html_writer::link($delete,
+            $OUTPUT->pix_icon('i/delete', get_string('delete')));
+
+        return implode(" | ", $actions);
     }
 
     /**
