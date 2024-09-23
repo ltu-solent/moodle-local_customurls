@@ -39,6 +39,7 @@ if (has_capability('local/customurls:managecustomurls', $context)) {
     $canedit = true;
 }
 $action = optional_param('action', '', PARAM_ALPHA);
+$download = optional_param('download', '', PARAM_ALPHA);
 
 if ($canedit) {
     $resetallconfirm = optional_param('resetallconfirm', 0, PARAM_BOOL);
@@ -49,6 +50,10 @@ if ($canedit) {
             null,
             \core\output\notification::NOTIFY_SUCCESS
         );
+    }
+    $table = new \local_customurls\tables\customurls_table('customurls', $download);
+    if ($table->is_downloading()) {
+        $table->download();
     }
 }
 
@@ -100,8 +105,7 @@ if ($canedit) {
     );
     echo $OUTPUT->render($resetall);
 }
-$where = '1=1';
-$table->set_sql('*', "{customurls}", $where);
+
 $searchform = new \local_customurls\forms\search_form();
 if ($formdata = $searchform->get_data()) {
     // Only display unbroken links? We might sometimes get false negatives.
@@ -112,7 +116,6 @@ if ($formdata = $searchform->get_data()) {
 
 echo $searchform->display();
 
-$table->define_baseurl(new moodle_url("/local/customurls/index.php"));
 $table->out(100, false);
 
 echo $OUTPUT->footer();

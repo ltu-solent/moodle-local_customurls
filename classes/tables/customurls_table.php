@@ -52,13 +52,20 @@ class customurls_table extends table_sql {
      * {@inheritDoc}
      *
      * @param string $uniqueid
+     * @param string $downloadformat Used to determine if a download is happening.
      */
-    public function __construct($uniqueid) {
+    public function __construct($uniqueid, $downloadformat = null) {
         parent::__construct($uniqueid);
         $context = context_system::instance();
         $canmanage = has_capability('local/customurls:managecustomurls', $context);
         $this->set_attribute('id', 'local_customurls-customurls');
         $this->useridfield = 'user';
+        $this->define_baseurl(new moodle_url("/local/customurls/index.php"));
+        $this->downloadable = true;
+        $where = '1=1';
+        $this->set_sql('*', "{customurls}", $where);
+        $columns = [];
+        $columnheadings = [];
         if ($canmanage) {
             $columns = [
                 'id',
@@ -69,7 +76,6 @@ class customurls_table extends table_sql {
                 'lastaccessed',
                 'isbroken',
                 'accesscount',
-                'actions',
             ];
             $columnheadings = [
                 get_string('id', 'local_customurls'),
@@ -80,8 +86,14 @@ class customurls_table extends table_sql {
                 get_string('lastaccessed', 'local_customurls'),
                 get_string('urlstatus', 'local_customurls'),
                 get_string('accesscount', 'local_customurls'),
-                get_string('actions', 'local_customurls'),
             ];
+            $this->is_downloading($downloadformat, 'customurls', 'customurls');
+            // Only output actions if we're not downloading.
+            if (!$this->is_downloading()) {
+                $columns[] = 'actions';
+                $columnheadings[] = get_string('actions', 'local_customurls');
+            }
+            $this->show_download_buttons_at([TABLE_P_BOTTOM]);
         } else {
             $columns = [
                 'id',
@@ -114,6 +126,9 @@ class customurls_table extends table_sql {
         global $OUTPUT;
         $actions = [];
         if (!has_capability('local/customurls:managecustomurls', context_system::instance())) {
+            return '';
+        }
+        if ($this->is_downloading()) {
             return '';
         }
 
@@ -209,5 +224,17 @@ class customurls_table extends table_sql {
             return "-";
         }
         return userdate($col->lastaccessed, get_string('strftimedatetimeshort', 'core_langconfig'));
+    }
+
+    /**
+     * Download
+     *
+     * @return void
+     */
+    public function download() {
+        unset($this->columns['actions']);
+        \core\session\manager::write_close();
+        $this->out(0, false);
+        exit;
     }
 }
