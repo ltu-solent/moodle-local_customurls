@@ -61,7 +61,6 @@ class customurls_table extends table_sql {
         $this->set_attribute('id', 'local_customurls-customurls');
         $this->useridfield = 'user';
         $this->define_baseurl(new moodle_url("/local/customurls/index.php"));
-        $this->downloadable = true;
         $where = '1=1';
         $this->set_sql('*', "{customurls}", $where);
         $columns = [];
@@ -87,6 +86,7 @@ class customurls_table extends table_sql {
                 get_string('urlstatus', 'local_customurls'),
                 get_string('accesscount', 'local_customurls'),
             ];
+            $this->downloadable = true;
             $this->is_downloading($downloadformat, 'customurls', 'customurls');
             // Only output actions if we're not downloading.
             if (!$this->is_downloading()) {
