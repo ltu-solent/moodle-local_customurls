@@ -88,7 +88,7 @@ class local_customurls_generator extends component_generator_base {
             ]);
             $record = new stdClass();
             $record->custom_name = $course->shortname;
-            $record->user = $USER->id;
+            $record->usermodified = $USER->id;
             $record->url = '/course/view.php?id=' . $course->id;
             $record->info = "{$course->shortname} description";
             $customurl = $this->create_customurl($record);

@@ -4,16 +4,18 @@
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
     <TABLES>
-    <TABLE NAME="customurls" COMMENT="Defines local_customurls">
+    <TABLE NAME="local_customurls" COMMENT="Defines local_customurls">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-        <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="info" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false"/>
 		    <FIELD NAME="url" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
 		    <FIELD NAME="custom_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" />
         <FIELD NAME="lastaccessed" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
         <FIELD NAME="accesscount" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
         <FIELD NAME="isbroken" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
+        <FIELD NAME="usermodified" SEQUENCE="false" TYPE="int" NOTNULL="true" LENGTH="10" UNSIGNED="true" />
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

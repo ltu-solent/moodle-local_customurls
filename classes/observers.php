@@ -39,7 +39,7 @@ class observers {
     public static function user_deleted(\core\event\user_deleted $event) {
         global $DB;
         $adminuserid = get_admin()->id;
-        $DB->set_field('customurls', 'user',
-                    $adminuserid, ['user' => $event->objectid]);
+        $DB->set_field('local_customurls', 'usermodified',
+                    $adminuserid, ['usermodified' => $event->objectid]);
     }
 }

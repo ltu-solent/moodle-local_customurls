@@ -37,7 +37,7 @@ class customurl extends persistent {
     /**
      * Table name for customurls.
      */
-    const TABLE = 'customurls';
+    const TABLE = 'local_customurls';
 
     /**
      * Return the definition of the properties of this model.
@@ -47,10 +47,6 @@ class customurl extends persistent {
     protected static function define_properties() {
         global $USER;
         return [
-            'user' => [
-                'type' => PARAM_INT,
-                'default' => $USER->id,
-            ],
             'info' => [
                 'type' => PARAM_TEXT,
             ],
@@ -168,17 +164,20 @@ class customurl extends persistent {
      * @return void
      */
     public static function reset_count($id = 0) {
-        global $DB;
+        global $DB, $USER;
         $context = context_system::instance();
         require_capability('local/customurls:managecustomurls', $context);
-        $params = [];
+        $params = [
+            'usermodified' => $USER->id,
+            'timemodified' => time(),
+        ];
         $where = '1 = 1';
         // If id is 0, then it's a reset all.
         if ($id > 0) {
             $params['id'] = $id;
             $where = 'id = :id';
         }
-        $sql = "UPDATE {customurls} SET accesscount = 0 WHERE $where";
+        $sql = "UPDATE {local_customurls} SET accesscount = 0, usermodified = :usermodified, timemodified = :timemodified WHERE $where";
         $DB->execute($sql, $params);
     }
 }

@@ -59,31 +59,35 @@ class customurls_table extends table_sql {
         $context = context_system::instance();
         $canmanage = has_capability('local/customurls:managecustomurls', $context);
         $this->set_attribute('id', 'local_customurls-customurls');
-        $this->useridfield = 'user';
+        $this->useridfield = 'usermodified';
         $this->define_baseurl(new moodle_url("/local/customurls/index.php"));
         $where = '1=1';
-        $this->set_sql('*', "{customurls}", $where);
+        $this->set_sql('*', "{local_customurls}", $where);
         $columns = [];
         $columnheadings = [];
         if ($canmanage) {
             $columns = [
                 'id',
-                'user',
                 'info',
                 'custom_name',
                 'url',
                 'lastaccessed',
                 'isbroken',
+                'timecreated',
+                'timemodified',
+                'usermodified',
                 'accesscount',
             ];
             $columnheadings = [
                 get_string('id', 'local_customurls'),
-                get_string('createdby', 'local_customurls'),
                 get_string('description', 'local_customurls'),
                 get_string('customlink', 'local_customurls'),
                 get_string('redirectto', 'local_customurls'),
                 get_string('lastaccessed', 'local_customurls'),
                 get_string('urlstatus', 'local_customurls'),
+                get_string('timecreated'),
+                get_string('timemodified', 'local_customurls'),
+                get_string('modifiedby', 'local_customurls'),
                 get_string('accesscount', 'local_customurls'),
             ];
             $this->downloadable = true;
@@ -156,6 +160,17 @@ class customurls_table extends table_sql {
     }
 
     /**
+     * Returns a linked custom_name
+     *
+     * @param stdClass $col
+     * @return string link html
+     */
+    public function col_custom_name($col) {
+        $customurl = api::get_customname_as_url($col->custom_name);
+        return html_writer::link($customurl, $col->custom_name);
+    }
+
+    /**
      * IsBroken column
      *
      * @param stdClass $col Data for current row
@@ -174,14 +189,42 @@ class customurls_table extends table_sql {
     }
 
     /**
-     * Returns a linked custom_name
+     * Last accessed column
      *
-     * @param stdClass $col
-     * @return string link html
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
      */
-    public function col_custom_name($col) {
-        $customurl = api::get_customname_as_url($col->custom_name);
-        return html_writer::link($customurl, $col->custom_name);
+    public function col_lastaccessed($col) {
+        if ($col->lastaccessed == 0) {
+            return "-";
+        }
+        return userdate($col->lastaccessed, get_string('strftimedatetimeshort', 'core_langconfig'));
+    }
+
+    /**
+     * Time created column
+     *
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
+     */
+    public function col_timecreated($col) {
+        if ($col->timecreated == 0) {
+            return "-";
+        }
+        return userdate($col->timecreated, get_string('strftimedatetimeshort', 'core_langconfig'));
+    }
+
+    /**
+     * Time modified column
+     *
+     * @param stdClass $col Data for current row
+     * @return string Content for cell
+     */
+    public function col_timemodified($col) {
+        if ($col->timemodified == 0) {
+            return "-";
+        }
+        return userdate($col->timemodified, get_string('strftimedatetimeshort', 'core_langconfig'));
     }
 
     /**
@@ -204,27 +247,15 @@ class customurls_table extends table_sql {
      * @param stdClass $col Data for current row
      * @return string Content for cell
      */
-    public function col_user($col) {
+    public function col_usermodified($col) {
         // Check for deleted user.
-        $createdby = core_user::get_user($col->user);
+        $createdby = core_user::get_user($col->usermodified);
         if (!$createdby || $createdby->deleted) {
             return get_string('deleteduser', 'local_customurls');
         }
         return fullname($createdby);
     }
 
-    /**
-     * Last accessed column
-     *
-     * @param stdClass $col Data for current row
-     * @return string Content for cell
-     */
-    public function col_lastaccessed($col) {
-        if ($col->lastaccessed == 0) {
-            return "-";
-        }
-        return userdate($col->lastaccessed, get_string('strftimedatetimeshort', 'core_langconfig'));
-    }
 
     /**
      * Download

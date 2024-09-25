@@ -45,14 +45,14 @@ class generator_test extends advanced_testcase {
         $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         // Doesn't work in docker context for testing, so turning off check.
         set_config('checkurl', 0, 'local_customurls');
-        $count = $DB->count_records('customurls');
+        $count = $DB->count_records('local_customurls');
         $customurl = $gen->create_customurl([
             'custom_name' => 'cu1',
             'url' => '/my',
             'info' => 'cu1 description',
         ]);
         $count++;
-        $this->assertEquals($count, $DB->count_records('customurls'));
+        $this->assertEquals($count, $DB->count_records('local_customurls'));
         $this->assertSame('cu1', $customurl->get('custom_name'));
     }
 
@@ -66,7 +66,7 @@ class generator_test extends advanced_testcase {
         $generator = $this->getDataGenerator()->get_plugin_generator('local_customurls');
 
         $countcourses = $DB->count_records('course', ['category' => 1]);
-        $countcustomurls = $DB->count_records('customurls');
+        $countcustomurls = $DB->count_records('local_customurls');
 
         $candc = $generator->setup_courses_and_customurls($num);
 
@@ -74,7 +74,7 @@ class generator_test extends advanced_testcase {
         $countcustomurls = $countcustomurls + $num;
 
         $this->assertEquals($countcourses, $DB->count_records('course', ['category' => 1]));
-        $this->assertEquals($countcustomurls, $DB->count_records('customurls'));
+        $this->assertEquals($countcustomurls, $DB->count_records('local_customurls'));
         $this->assertEquals($num, count($candc));
         for ($i = 0; $i < $num; $i++) {
             $customurl = $candc[$i]['customurl'];

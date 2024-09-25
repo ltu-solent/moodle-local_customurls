@@ -42,18 +42,18 @@ class observers_test extends advanced_testcase {
         // No need to check the urls are valid.
 
         $urlscourses = $cugenerator->setup_courses_and_customurls(2);
-        $count = $DB->count_records('customurls', ['user' => $user->id]);
+        $count = $DB->count_records('local_customurls', ['usermodified' => $user->id]);
         $this->assertEquals(2, $count);
         // Ownership is going to transfer to siteadmin - check they don't have any bookmarks.
-        $count = $DB->count_records('customurls', ['user' => $adminuserid]);
+        $count = $DB->count_records('local_customurls', ['usermodified' => $adminuserid]);
         $this->assertEquals(0, $count);
 
         delete_user($user);
-        $count = $DB->count_records('customurls', ['user' => $user->id]);
+        $count = $DB->count_records('local_customurls', ['usermodified' => $user->id]);
         $this->assertEquals(0, $count);
 
         // Ownership transfers to the main siteadmin, rather than deleting the urls.
-        $count = $DB->count_records('customurls', ['user' => $adminuserid]);
+        $count = $DB->count_records('local_customurls', ['usermodified' => $adminuserid]);
         $this->assertEquals(2, $count);
     }
 }

@@ -59,7 +59,6 @@ class customurl_form extends persistent {
         global $CFG, $USER;
         $mform = $this->_form;
         $config = get_config('local_customurls');
-        $mform->addElement('hidden', 'user');
 
         $mform->addElement('text', 'url', new lang_string('url', 'local_customurls'), 'size="51"');
         $mform->addRule('url', get_string('required'), 'required', null, 'client');

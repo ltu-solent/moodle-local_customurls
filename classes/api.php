@@ -72,13 +72,13 @@ class api {
         if ($lastq !== false) {
             $uri = substr($uri, 0, $lastq);
         }
-        $record = $DB->get_record('customurls', ['custom_name' => $uri]);
+        $record = $DB->get_record('local_customurls', ['custom_name' => $uri]);
         if (!$record) {
             return false;
         }
         $record->lastaccessed = time();
         $record->accesscount++;
-        $DB->update_record('customurls', $record);
+        $DB->update_record('local_customurls', $record);
         return $record;
     }
 

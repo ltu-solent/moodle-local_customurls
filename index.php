@@ -111,7 +111,7 @@ if ($formdata = $searchform->get_data()) {
     // Only display unbroken links? We might sometimes get false negatives.
     // Search also for space replacing with "-" or ""?
     $where = 'custom_name LIKE :query';
-    $table->set_sql('*', "{customurls}", $where, ['query' => '%' . $formdata->query . '%']);
+    $table->set_sql('*', "{local_customurls}", $where, ['query' => '%' . $formdata->query . '%']);
 }
 
 echo $searchform->display();

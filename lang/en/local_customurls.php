@@ -45,7 +45,6 @@ $string['contactemail_desc'] = 'Email address to notify page is missing.';
 $string['contactus'] = '<p>If you think this is a server error, please contact us
     at <a href="mailto:{$a->contactemail}">{$a->contactname}</a>.</p>';
 $string['countreset'] = 'Count reset for {$a}';
-$string['createdby'] = 'Created by';
 $string['customlink'] = 'Custom link';
 $string['custom_name'] = 'Custom link';
 $string['custom_name_help'] = 'Redirect path for the original url';
@@ -93,6 +92,7 @@ $string['lastaccessed'] = 'Last accessed';
 $string['managecustomurls'] = 'Manage custom urls';
 $string['messagehelp'] = 'If you believe this page should have existed, please let us know by clicking on the "Report broken link" button.
 This will send our team a message. Thank you.';
+$string['modifiedby'] = 'Modified by';
 
 $string['newcustomurl'] = 'New CustomUrl';
 $string['newsaved'] = 'New CustomUrl saved.';
@@ -115,6 +115,7 @@ $string['statusok'] = 'Url is OK';
 
 $string['tellus'] = 'Report broken link';
 $string['thankyou'] = 'Thank you for reporting this broken link';
+$string['timemodified'] = 'Time modified';
 
 $string['unclean'] = 'Unclean url';
 $string['updated'] = '"{$a}" has been updated.';
