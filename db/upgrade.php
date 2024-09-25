@@ -106,6 +106,8 @@ function xmldb_local_customurls_upgrade($oldversion) {
         $dbman->rename_field($table, $field, 'usermodified');
 
         $dbman->rename_table($table, 'local_customurls');
+
+        upgrade_plugin_savepoint(true, 2024092500, 'local', 'customurls');
     }
 
     return $result;

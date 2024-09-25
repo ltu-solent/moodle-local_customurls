@@ -57,7 +57,7 @@ class checkurls extends \core\task\scheduled_task {
     public function execute() {
         global $DB;
         // Get them all.
-        $customurls = $DB->get_records('customurls');
+        $customurls = $DB->get_records('local_customurls');
         $count = count($customurls);
         $updates = 0;
         // Raise the time limit.
@@ -77,7 +77,7 @@ class checkurls extends \core\task\scheduled_task {
             $record = new \stdClass();
             $record->id = $customurl->id;
             $record->isbroken = $customurl->isbroken;
-            $DB->update_record('customurls', $record);
+            $DB->update_record('local_customurls', $record);
             $updates++;
         }
         $this->log_finish("{$updates} updates made.", 1);

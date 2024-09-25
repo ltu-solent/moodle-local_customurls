@@ -177,7 +177,8 @@ class customurl extends persistent {
             $params['id'] = $id;
             $where = 'id = :id';
         }
-        $sql = "UPDATE {local_customurls} SET accesscount = 0, usermodified = :usermodified, timemodified = :timemodified WHERE $where";
+        $sql = "UPDATE {local_customurls} SET
+            accesscount = 0, usermodified = :usermodified, timemodified = :timemodified WHERE $where";
         $DB->execute($sql, $params);
     }
 }
