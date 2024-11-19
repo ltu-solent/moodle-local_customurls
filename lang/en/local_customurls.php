@@ -92,11 +92,11 @@ $string['lastaccessed'] = 'Last accessed';
 $string['managecustomurls'] = 'Manage custom urls';
 $string['messagehelp'] = 'If you believe this page should have existed, please let us know by clicking on the "Report broken link" button.
 This will send our team a message. Thank you.';
+$string['messageprovider:notifymissingpage'] = 'Missing page notification';
 $string['modifiedby'] = 'Modified by';
 
 $string['newcustomurl'] = 'New CustomUrl';
 $string['newsaved'] = 'New CustomUrl saved.';
-$string['notifymissingpage'] = 'Missing page notification';
 
 $string['pagenotfound'] = '404 - Page not found';
 $string['pluginname'] = "Custom Urls";
