@@ -51,7 +51,9 @@ class api {
         ]);
         $curl->head($url);
         $info = $curl->get_info();
-        return ($info['http_code'] == 200);
+        // Assume url doesn't exist if there is no http_code.
+        $httpcode = $info['http_code'] ?? 404;
+        return ($httpcode == 200);
     }
 
     /**
