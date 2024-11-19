@@ -96,6 +96,7 @@ $string['modifiedby'] = 'Modified by';
 
 $string['newcustomurl'] = 'New CustomUrl';
 $string['newsaved'] = 'New CustomUrl saved.';
+$string['notifymissingpage'] = 'Missing page notification';
 
 $string['pagenotfound'] = '404 - Page not found';
 $string['pluginname'] = "Custom Urls";
