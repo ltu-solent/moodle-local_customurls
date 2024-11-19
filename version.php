@@ -25,7 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2024092500;
+$plugin->version  = 2024111900;
 $plugin->requires = 2022112800;
-$plugin->release = 'v4.1-r1';
+$plugin->release = 'v4.5-r0';
 $plugin->component = 'local_customurls';
+$plugin->supported = [405, 500];
