@@ -28,16 +28,16 @@ use advanced_testcase;
  * @covers \local_customurls\observers
  * @group sol
  */
-class observers_test extends advanced_testcase {
+final class observers_test extends advanced_testcase {
 
-    public function test_delete_user() {
+    public function test_delete_user(): void {
         global $DB;
         $this->resetAfterTest();
         $user = $this->getDataGenerator()->create_user();
         $this->setUser($user);
         $adminuserid = get_admin()->id;
         set_config('checkurl', 0, 'local_customurls');
-
+        /** @var \local_customurls_generator $cugenerator */
         $cugenerator = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         // No need to check the urls are valid.
 

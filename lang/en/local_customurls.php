@@ -45,13 +45,13 @@ $string['contactemail_desc'] = 'Email address to notify page is missing.';
 $string['contactus'] = '<p>If you think this is a server error, please contact us
     at <a href="mailto:{$a->contactemail}">{$a->contactname}</a>.</p>';
 $string['countreset'] = 'Count reset for {$a}';
-$string['customlink'] = 'Custom link';
 $string['custom_name'] = 'Custom link';
 $string['custom_name_help'] = 'Redirect path for the original url';
+$string['customlink'] = 'Custom link';
 $string['custompath'] = 'Custom path';
-$string['customurls:managecustomurls'] = 'Can manage custom urls';
-$string['customurls:librarycustomurls'] = 'Can view library urls';
 $string['customurls:admincustomurls'] = 'Can view admin urls';
+$string['customurls:librarycustomurls'] = 'Can view library urls';
+$string['customurls:managecustomurls'] = 'Can manage custom urls';
 $string['customurlshelp'] = 'Extra help';
 $string['customurlshelp_desc'] = 'Some extra help displayed on the custom urls edit page.';
 
@@ -103,10 +103,9 @@ $string['pluginname'] = "Custom Urls";
 
 $string['query'] = 'Search customurls';
 
+$string['redirectto'] = 'Redirect to';
 $string['requestedurlnotfound'] = '<p>The requested URL was not found on this server.</p>' .
     '<p>If you entered the URL manually please check your spelling and try again.</p>';
-
-$string['redirectto'] = 'Redirect to';
 $string['resetcount'] = 'Reset access count';
 
 $string['searchbox'] = 'Display course search box';
@@ -123,9 +122,9 @@ $string['updated'] = '"{$a}" has been updated.';
 $string['url'] = 'Original Url';
 $string['url_help'] = 'The url you wish to direct the user to. You do not need the full domain unless the site is external.';
 $string['urlbroken'] = 'The url for {$a->custom_name} is broken.';
-$string['urlunbroken'] = 'The url for {$a->custom_name} now appears to be working.';
 $string['urlnotexists'] = 'The url doesn\'t exist';
 $string['urlstatus'] = 'Url status';
+$string['urlunbroken'] = 'The url for {$a->custom_name} now appears to be working.';
 
 $string['whitelist'] = 'Whitelist';
 $string['whitelist_help'] = 'Only these domains are permitted';

@@ -39,8 +39,14 @@ global $CFG;
  * @covers \local\customurls\api
  * @group sol
  */
-class api_test extends advanced_testcase {
+final class api_test extends advanced_testcase {
+    /**
+     * Setup required
+     *
+     * @return void
+     */
     public function setUp(): void {
+        parent::setUp();
         $this->resetAfterTest();
         set_config('checkurl', 0, 'local_customurls');
         $user = $this->getDataGenerator()->create_user();
@@ -55,7 +61,8 @@ class api_test extends advanced_testcase {
      *
      * @return void
      */
-    public function test_get_customurl($customname, $status) {
+    public function test_get_customurl($customname, $status): void {
+        /** @var \local_customurls_generator $gen  */
         $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         $customurl = $gen->create_customurl(['custom_name' => $customname, 'url' => '/my']);
         $this->assertNotFalse($customurl);

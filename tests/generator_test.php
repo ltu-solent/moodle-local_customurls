@@ -37,8 +37,8 @@ use advanced_testcase;
  * @covers \local_customurls_generator
  * @group sol
  */
-class generator_test extends advanced_testcase {
-    public function test_create() {
+final class generator_test extends advanced_testcase {
+    public function test_create(): void {
         global $DB;
         $this->resetAfterTest();
         /** @var local_customurls_generator $gen */
@@ -56,7 +56,7 @@ class generator_test extends advanced_testcase {
         $this->assertSame('cu1', $customurl->get('custom_name'));
     }
 
-    public function test_setup_courses_and_customurls() {
+    public function test_setup_courses_and_customurls(): void {
         global $DB;
         $this->resetAfterTest();
         // Doesn't work in docker context for testing, so turning off check.

@@ -39,7 +39,7 @@ use local_customurls_generator;
  * @covers \local_customurls\customurl
  * @group sol
  */
-class customurl_test extends advanced_testcase {
+final class customurl_test extends advanced_testcase {
 
     /**
      * Setup
@@ -47,6 +47,7 @@ class customurl_test extends advanced_testcase {
      * @return void
      */
     public function setUp(): void {
+        parent::setUp();
         $this->resetAfterTest();
         // Check url is off as it's a little unreliable to do remote tests. The url is still validated for being well-formed.
         // And checked against a whitelist and blocked urls.
@@ -63,7 +64,7 @@ class customurl_test extends advanced_testcase {
      *
      * @return void
      */
-    public function test_set_customurl($data, $status) {
+    public function test_set_customurl($data, $status): void {
         /** @var local_customurls_generator $gen */
         $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
         if ($status !== true) {
@@ -153,7 +154,7 @@ class customurl_test extends advanced_testcase {
      * @param string $url
      * @return void
      */
-    public function test_validate_url($url) {
+    public function test_validate_url($url): void {
         global $CFG;
         /** @var local_customurls_generator $gen */
         $gen = $this->getDataGenerator()->get_plugin_generator('local_customurls');
@@ -211,7 +212,7 @@ class customurl_test extends advanced_testcase {
      *
      * @return void
      */
-    public function test_report_duplicate_url() {
+    public function test_report_duplicate_url(): void {
         $this->expectException(\core\invalid_persistent_exception::class);
         $this->expectExceptionMessage('custom_name: Custom path already exists');
         set_config('whitelistdomainpattern', '', 'local_customurls');
