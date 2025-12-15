@@ -40,7 +40,6 @@ use local_customurls_generator;
  * @group sol
  */
 final class customurl_test extends advanced_testcase {
-
     /**
      * Setup
      *
@@ -187,7 +186,6 @@ final class customurl_test extends advanced_testcase {
                 $ex->getMessage()
             );
         }
-
     }
 
     /**

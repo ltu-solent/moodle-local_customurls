@@ -29,7 +29,6 @@ use advanced_testcase;
  * @group sol
  */
 final class observers_test extends advanced_testcase {
-
     public function test_delete_user(): void {
         global $DB;
         $this->resetAfterTest();
@@ -57,4 +56,3 @@ final class observers_test extends advanced_testcase {
         $this->assertEquals(2, $count);
     }
 }
-

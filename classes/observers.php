@@ -29,7 +29,6 @@ namespace local_customurls;
  * Event observers class
  */
 class observers {
-
     /**
      * Move customurls associated with this user to siteadmin.
      *
@@ -39,7 +38,11 @@ class observers {
     public static function user_deleted(\core\event\user_deleted $event) {
         global $DB;
         $adminuserid = get_admin()->id;
-        $DB->set_field('local_customurls', 'usermodified',
-                    $adminuserid, ['usermodified' => $event->objectid]);
+        $DB->set_field(
+            'local_customurls',
+            'usermodified',
+            $adminuserid,
+            ['usermodified' => $event->objectid]
+        );
     }
 }

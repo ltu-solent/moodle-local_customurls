@@ -38,43 +38,50 @@ if ($hassiteconfig) {
     if (!$domain) {
         $domain = '';
     }
-    $settings->add(new admin_setting_configtextarea('local_customurls/whitelistdomainpattern',
-        $name, $desc, $domain, PARAM_RAW));
+    $settings->add(
+        new admin_setting_configtextarea('local_customurls/whitelistdomainpattern', $name, $desc, $domain, PARAM_RAW)
+    );
 
     $name = new lang_string('checkurl', 'local_customurls');
     $desc = new lang_string('checkurl_desc', 'local_customurls');
-    $settings->add(new admin_setting_configcheckbox('local_customurls/checkurl',
-        $name, $desc, 1));
+    $settings->add(new admin_setting_configcheckbox('local_customurls/checkurl', $name, $desc, 1));
 
     $name = new lang_string('contactemail', 'local_customurls');
     $desc = new lang_string('contactemail_desc', 'local_customurls');
-    $settings->add(new admin_setting_configtext('local_customurls/contactemail',
-        $name, $desc, '', PARAM_EMAIL));
+    $settings->add(new admin_setting_configtext('local_customurls/contactemail', $name, $desc, '', PARAM_EMAIL));
 
     $name = new lang_string('emailforloggedinusers', 'local_customurls');
     $desc = new lang_string('emailforloggedinusers_desc', 'local_customurls');
-    $settings->add(new admin_setting_configcheckbox('local_customurls/emailforloggedinusers',
-        $name, $desc, 1));
+    $settings->add(new admin_setting_configcheckbox('local_customurls/emailforloggedinusers', $name, $desc, 1));
 
     $name = new lang_string('searchbox', 'local_customurls');
     $desc = new lang_string('searchbox_desc', 'local_customurls');
-    $settings->add(new admin_setting_configcheckbox('local_customurls/searchbox',
-        $name, $desc, 1));
+    $settings->add(new admin_setting_configcheckbox('local_customurls/searchbox', $name, $desc, 1));
 
-    $name = new lang_string('fourohfourmessage', 'local_customurls');
-    $desc = new lang_string('fourohfourmessage_desc', 'local_customurls');
-    $settings->add(new admin_setting_confightmleditor('local_customurls/fourohfourmessage',
-        $name, $desc, get_string('requestedurlnotfound', 'local_customurls')));
+    $settings->add(
+        new admin_setting_confightmleditor(
+            'local_customurls/fourohfourmessage',
+            new lang_string('fourohfourmessage', 'local_customurls'),
+            new lang_string('fourohfourmessage_desc', 'local_customurls'),
+            get_string('requestedurlnotfound', 'local_customurls')
+        )
+    );
 
     $name = new lang_string('customurlshelp', 'local_customurls');
     $desc = new lang_string('customurlshelp_desc', 'local_customurls');
-    $settings->add(new admin_setting_confightmleditor('local_customurls/customurlshelp',
-        $name, $desc, ''));
+    $settings->add(new admin_setting_confightmleditor('local_customurls/customurlshelp', $name, $desc, ''));
 
-    $name = new lang_string('backgroundimage', 'local_customurls');
-    $desc = new lang_string('backgroundimage_desc', 'local_customurls');
-    $settings->add(new admin_setting_configstoredfile('local_customurls/backgroundimage',
-        $name, $desc, 'customurls', 0, ['maxfiles' => 1, 'accepted_types' => ['image']]));
+    $settings->add(
+        new admin_setting_configstoredfile(
+            'local_customurls/backgroundimage',
+            new lang_string('backgroundimage', 'local_customurls'),
+            new lang_string('backgroundimage_desc', 'local_customurls'),
+            'customurls',
+            0,
+            ['maxfiles' => 1,
+            'accepted_types' => ['image']]
+        )
+    );
 
     $ADMIN->add('localplugins', $settings);
 }

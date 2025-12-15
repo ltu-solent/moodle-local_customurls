@@ -36,7 +36,6 @@ function xmldb_local_customurls_upgrade($oldversion) {
     $result = true;
 
     if ($oldversion < 2012061924) {
-
         // Define field id to be added to customurls.
         $table = new xmldb_table('customurls');
         $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);

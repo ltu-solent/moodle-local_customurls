@@ -26,17 +26,12 @@
 namespace local_customurls\tables;
 
 use local_customurls\api;
-
-defined('MOODLE_INTERNAL') || die();
-
-require_once("$CFG->libdir/tablelib.php");
 use context_system;
+use core_table\sql_table;
 use core_user;
 use html_writer;
 use moodle_url;
 use pix_icon;
-use single_button;
-use table_sql;
 
 /**
  * Customurl table listing all filtered customurls
@@ -46,8 +41,7 @@ use table_sql;
  * @copyright 2022 Solent University {@link https://www.solent.ac.uk}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class customurls_table extends table_sql {
-
+class customurls_table extends sql_table {
     /**
      * {@inheritDoc}
      *
@@ -138,8 +132,10 @@ class customurls_table extends table_sql {
 
         $params = ['action' => 'edit', 'id' => $col->id];
         $edit = new moodle_url('/local/customurls/manage.php', $params);
-        $actions[] = html_writer::link($edit,
-            $OUTPUT->pix_icon('i/edit', get_string('edit')));
+        $actions[] = html_writer::link(
+            $edit,
+            $OUTPUT->pix_icon('i/edit', get_string('edit'))
+        );
 
         if ($col->accesscount > 0) {
             $reset = new moodle_url('/local/customurls/manage.php', [
@@ -147,14 +143,18 @@ class customurls_table extends table_sql {
                 'sesskey' => sesskey(),
                 'action' => 'resetcount',
             ]);
-            $actions[] = html_writer::link($reset,
-                $OUTPUT->pix_icon('t/reset', get_string('resetcount', 'local_customurls')));
+            $actions[] = html_writer::link(
+                $reset,
+                $OUTPUT->pix_icon('t/reset', get_string('resetcount', 'local_customurls'))
+            );
         }
 
         $params['action'] = 'delete';
         $delete = new moodle_url('/local/customurls/manage.php', $params);
-        $actions[] = html_writer::link($delete,
-            $OUTPUT->pix_icon('i/delete', get_string('delete')));
+        $actions[] = html_writer::link(
+            $delete,
+            $OUTPUT->pix_icon('i/delete', get_string('delete'))
+        );
 
         return implode(" | ", $actions);
     }

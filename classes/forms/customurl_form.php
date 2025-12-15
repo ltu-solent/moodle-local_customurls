@@ -42,7 +42,6 @@ use lang_string;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class customurl_form extends persistent {
-
     /**
      * Cross reference for the object this form is working from.
      *
@@ -81,8 +80,12 @@ class customurl_form extends persistent {
         $mform->addRule('custom_name', new lang_string('required'), 'required', null, 'client');
         $mform->addHelpButton('custom_name', 'custom_name', 'local_customurls');
 
-        $mform->addElement('textarea', 'info', new lang_string('description', 'local_customurls'),
-            'wrap="virtual" rows="5" cols="50"');
+        $mform->addElement(
+            'textarea',
+            'info',
+            new lang_string('description', 'local_customurls'),
+            'wrap="virtual" rows="5" cols="50"'
+        );
         $mform->addRule('info', new lang_string('required'), 'required', null, 'client');
         $mform->addHelpButton('info', 'info', 'local_customurls');
 

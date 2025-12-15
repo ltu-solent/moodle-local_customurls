@@ -33,7 +33,6 @@ use local_customurls\api;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_customurls_generator extends component_generator_base {
-
     /** @var int Number of created customurls. */
     protected $customurlscount = 0;
 

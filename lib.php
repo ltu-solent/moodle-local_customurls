@@ -35,7 +35,7 @@
  * @param array $options additional options affecting the file serving
  * @return bool false if the file not found, just send the file otherwise and do not return anything
  */
-function local_customurls_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=[]) {
+function local_customurls_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
 
     if ($context->contextlevel != CONTEXT_SYSTEM) {
         return false;

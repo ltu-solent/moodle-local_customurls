@@ -45,7 +45,8 @@ if ($canedit) {
     $resetallconfirm = optional_param('resetallconfirm', 0, PARAM_BOOL);
     if ($resetallconfirm && confirm_sesskey()) {
         customurl::reset_count();
-        redirect(new moodle_url('/local/customurls/index.php'),
+        redirect(
+            new moodle_url('/local/customurls/index.php'),
             get_string('allcountershavebeenreset', 'local_customurls'),
             null,
             \core\output\notification::NOTIFY_SUCCESS
@@ -61,7 +62,7 @@ $PAGE->set_context($context);
 $PAGE->set_heading(get_string('pluginname', 'local_customurls'));
 $PAGE->set_pagelayout('admin');
 $PAGE->set_title(get_string('pluginname', 'local_customurls'));
-$PAGE->set_url($CFG->wwwroot.'/local/customurls/index.php');
+$PAGE->set_url($CFG->wwwroot . '/local/customurls/index.php');
 
 echo $OUTPUT->header();
 
@@ -85,7 +86,8 @@ if ($action == 'resetall' && $canedit) {
 $table = new \local_customurls\tables\customurls_table('customurls');
 $table->no_sorting('actions');
 if ($canedit) {
-    $new = new action_link(new moodle_url('/local/customurls/manage.php', ['action' => 'new']),
+    $new = new action_link(
+        new moodle_url('/local/customurls/manage.php', ['action' => 'new']),
         get_string('newcustomurl', 'local_customurls'),
         null,
         ['class' => 'btn btn-primary'],

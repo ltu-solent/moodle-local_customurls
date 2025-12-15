@@ -104,8 +104,7 @@ class customurl extends persistent {
                     return new lang_string('invaliddomain', 'local_customurls', [
                             'domains' => join(", ", $targetdomains),
                             'url' => $url,
-                        ]
-                    );
+                    ]);
                 }
             }
         }
@@ -114,7 +113,7 @@ class customurl extends persistent {
             return new lang_string('invalidurl', 'local_customurls');
         }
 
-        $curlhelper = new \core\files\curl_security_helper;
+        $curlhelper = new \core\files\curl_security_helper();
         if ($curlhelper->url_is_blocked($url)) {
             return new lang_string('blockedurl', 'local_customurls', $url);
         }

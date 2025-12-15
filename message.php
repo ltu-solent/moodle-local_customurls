@@ -30,11 +30,11 @@ required_param('sesskey', PARAM_RAW);
 $requesturi = required_param('requesturi', PARAM_URL);
 $action = required_param('action', PARAM_ALPHA);
 
-$PAGE->set_context ( context_system::instance () );
-$PAGE->set_pagelayout ('base');
-$PAGE->set_title (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_heading (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_url (new moodle_url('/message.php'));
+$PAGE->set_context(context_system::instance());
+$PAGE->set_pagelayout('base');
+$PAGE->set_title(get_string('pagenotfound', 'local_customurls'));
+$PAGE->set_heading(get_string('pagenotfound', 'local_customurls'));
+$PAGE->set_url(new moodle_url('/message.php'));
 
 echo $OUTPUT->header();
 $customurlsconfig = get_config('local_customurls');

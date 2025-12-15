@@ -36,8 +36,6 @@ use local_customurls\api;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class checkurls extends \core\task\scheduled_task {
-
-    // Use the logging trait to get some nice, juicy, logging.
     use \core\task\logging_trait;
 
     /**

@@ -35,11 +35,11 @@ if ($customurl) {
     exit();
 }
 
-$PAGE->set_context ( context_system::instance () );
-$PAGE->set_pagelayout ('base');
-$PAGE->set_title (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_heading (get_string('pagenotfound', 'local_customurls'));
-$PAGE->set_url (new moodle_url('/404.php'));
+$PAGE->set_context(context_system::instance());
+$PAGE->set_pagelayout('base');
+$PAGE->set_title(get_string('pagenotfound', 'local_customurls'));
+$PAGE->set_heading(get_string('pagenotfound', 'local_customurls'));
+$PAGE->set_url(new moodle_url('/404.php'));
 
 echo $OUTPUT->header();
 $content = new \local_customurls\output\fourohfour();

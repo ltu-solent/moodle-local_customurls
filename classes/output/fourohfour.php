@@ -40,7 +40,6 @@ use templatable;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class fourohfour implements renderable, templatable {
-
     /**
      * {@inheritDoc}
      *
@@ -70,7 +69,8 @@ class fourohfour implements renderable, templatable {
                 'customurls',
                 null,
                 null,
-                $config->backgroundimage)->out();
+                $config->backgroundimage
+            )->out();
         }
 
         if ($config->searchbox) {

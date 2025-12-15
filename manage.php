@@ -68,7 +68,8 @@ $customdata = [
 if ($confirmdelete && confirm_sesskey()) {
     $customname = $customurl->get('custom_name');
     $customurl->delete();
-    redirect(new moodle_url('/local/customurls/index.php'),
+    redirect(
+        new moodle_url('/local/customurls/index.php'),
         get_string('deleted', 'local_customurls', $customname),
         null,
         \core\output\notification::NOTIFY_INFO
@@ -79,14 +80,15 @@ if ($action == 'resetcount' && confirm_sesskey()) {
     $customname = $customurl->get('custom_name');
     $customurl->set('accesscount', 0);
     $customurl->save();
-    redirect(new moodle_url('/local/customurls/index.php'),
+    redirect(
+        new moodle_url('/local/customurls/index.php'),
         get_string('countreset', 'local_customurls', $customname),
         null,
         \core\output\notification::NOTIFY_SUCCESS
     );
 }
 
-$PAGE->set_url($CFG->wwwroot.'/local/customurls/manage.php', $pageparams);
+$PAGE->set_url($CFG->wwwroot . '/local/customurls/manage.php', $pageparams);
 $form = new customurl_form($PAGE->url->out(false), $customdata);
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/local/customurls/index.php'));
@@ -96,7 +98,8 @@ if ($formdata = $form->get_data()) {
         $customurl = new customurl(0, $formdata);
         $customurl->create();
         // We are done, so let's redirect somewhere.
-        redirect(new moodle_url('/local/customurls/index.php'),
+        redirect(
+            new moodle_url('/local/customurls/index.php'),
             get_string('newsaved', 'local_customurls'),
             null,
             \core\output\notification::NOTIFY_SUCCESS
@@ -106,7 +109,8 @@ if ($formdata = $form->get_data()) {
         if ($action == 'edit') {
             $customurl->from_record($formdata);
             $customurl->update();
-            redirect(new moodle_url('/local/customurls/index.php'),
+            redirect(
+                new moodle_url('/local/customurls/index.php'),
                 get_string('updated', 'local_customurls', $formdata->custom_name),
                 null,
                 \core\output\notification::NOTIFY_SUCCESS
@@ -133,7 +137,9 @@ if ($action == 'delete') {
     $deletebutton = new single_button($deleteurl, get_string('delete'), 'post');
     echo $OUTPUT->confirm(
         get_string('confirmdelete', 'local_customurls', $customurl->get('custom_name')),
-        $deletebutton, new moodle_url('/local/customurls/index.php', ['id' => $id]));
+        $deletebutton,
+        new moodle_url('/local/customurls/index.php', ['id' => $id])
+    );
 } else {
     $heading = new lang_string('newcustomurl', 'local_customurls');
     if ($id > 0) {
